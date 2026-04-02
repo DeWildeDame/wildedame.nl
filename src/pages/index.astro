@@ -58,21 +58,22 @@ import CvCard from "../components/CvCard.astro";
 				{experience.map((item: any) => <CvCard {...item} />)}
 			</section>
 
-			<hr class="small rot2" />
-			<h2>Get in touch</h2>
+			<div class="gradient-header">
+				<h2>Get in touch</h2>
+			</div>
 			<p>
-				Take a peek at what I'm up to and exploring. <br />
-				Want to follow my projects or chat about something I’m working on?
+				Want to follow my projects or chat about something I’m working
+				on?
 				<br />You can reach me through any of the links below.
-				<ul class="linklist">
-					<li>
+				<ul class="social-links">
+					<li class="linkedin">
 						<a
-							href="https://www.linkedin.com/in/tamaraklaassen/"
+							href="https://www.linkedin.com/in/yourprofile"
 							target="_blank">LinkedIn</a
 						>
 					</li>
-					<li>
-						<a href="https://github.com/DeWildeDame" target="_blank"
+					<li class="github">
+						<a href="https://github.com/yourprofile" target="_blank"
 							>GitHub</a
 						>
 					</li>
@@ -218,6 +219,46 @@ import CvCard from "../components/CvCard.astro";
 		animation: drift 8s ease-in-out infinite;
 	}
 
+	.social-links {
+		list-style: none;
+		padding: 0;
+		margin: 1rem 0;
+	}
+
+	.social-links li {
+		margin: 0.5rem 0;
+		padding-left: 1.6rem;
+		position: relative;
+	}
+
+	.social-links li::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 1rem;
+		height: 1rem;
+		transform: translateY(-50%);
+		background-color: rgb(var(--accent));
+		mask-size: contain;
+		mask-repeat: no-repeat;
+		transition: 0.2s ease;
+		opacity: 0.9;
+	}
+
+	.social-links li.linkedin::before {
+		mask-image: url("/assets/img/icons/linkedin.svg");
+	}
+
+	.social-links li.github::before {
+		mask-image: url("/assets/img/icons/github.svg");
+	}
+
+	/* Apply glitch on hover */
+	.social-links li:hover {
+		animation: glitch-tiny 300ms steps(8);
+	}
+
 	.gradient-header span {
 		white-space: nowrap;
 		font-size: 1.8rem;
@@ -271,6 +312,44 @@ import CvCard from "../components/CvCard.astro";
 				2px 0 #f0f,
 				-2px 0 #0ff;
 			transform: translate(4px, 6px);
+		}
+		100% {
+			text-shadow: none;
+			transform: translate(0);
+		}
+	}
+
+	/* Tiny glitch */
+	@keyframes glitch-tiny {
+		0% {
+			text-shadow:
+				2px 0 #f0f,
+				-2px 0 #0ff;
+			transform: translate(0);
+		}
+		20% {
+			text-shadow:
+				-1px 0 #f0f,
+				1px 0 #0ff;
+			transform: translate(-1px, 1px);
+		}
+		40% {
+			text-shadow:
+				2px 0 #f0f,
+				-2px 0 #0ff;
+			transform: translate(1px, -1px);
+		}
+		60% {
+			text-shadow:
+				-2px 0 #f0f,
+				2px 0 #0ff;
+			transform: translate(-1px, -1px);
+		}
+		80% {
+			text-shadow:
+				2px 0 #f0f,
+				-2px 0 #0ff;
+			transform: translate(1px, 1px);
 		}
 		100% {
 			text-shadow: none;

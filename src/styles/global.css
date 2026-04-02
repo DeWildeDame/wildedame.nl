@@ -5,8 +5,8 @@
  */
 
 :root {
-	--accent: #fff23a;
-	--accent-dark: #e83e39;
+	--accent: 255, 242, 58;
+	--accent-dark: 232, 62, 57;
 	--black: 30, 30, 30;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
