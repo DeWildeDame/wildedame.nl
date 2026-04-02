@@ -155,7 +155,7 @@ blockquote {
 hr {
 	border: none;
 	margin: 2rem 0 3rem;
-	//border-top: 1px solid rgb(var(--gray-light));
+	/*border-top: 1px solid rgb(var(--gray-light));*/
 }
 
 hr.gradient {

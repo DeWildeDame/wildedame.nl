@@ -4,47 +4,47 @@ import HeaderLink from "./HeaderLink.astro";
 ---
 
 <header>
-  <nav>
-    <a href="/">
-      <img src="./favicon.svg" alt={SITE_TITLE} width="32" height="32" />
-    </a>
-    <div class="internal-links">
-      <HeaderLink href="/">About me</HeaderLink>
-      <HeaderLink href="/blog">Blog</HeaderLink>
-      <HeaderLink href="/about">About</HeaderLink>
-    </div>
-  </nav>
+	<nav>
+		<a href="/">
+			<img src="./favicon.svg" alt={SITE_TITLE} width="32" height="32" />
+		</a>
+		<div class="internal-links">
+			<HeaderLink href="/">About me</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">Contact</HeaderLink>
+		</div>
+	</nav>
 </header>
 <style>
-  header {
-    margin: 0;
-    padding: 0 1em;
-    box-shadow: 0 2px 8px rgba(var(--black), 5%);
-    margin: auto;
-    width: 720px;
-  }
-  h2 {
-    margin: 0;
-    font-size: 1em;
-  }
+	header {
+		margin: 0;
+		padding: 0 1em;
+		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+		margin: auto;
+		width: 720px;
+	}
+	h2 {
+		margin: 0;
+		font-size: 1em;
+	}
 
-  h2 a,
-  h2 a.active {
-    text-decoration: none;
-  }
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  nav a {
-    padding: 1em 0.5em;
-    color: var(--black);
-    border-bottom: 4px solid transparent;
-    text-decoration: none;
-  }
-  nav a.active {
-    text-decoration: none;
-    border-bottom-color: var(--accent);
-  }
+	h2 a,
+	h2 a.active {
+		text-decoration: none;
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	nav a {
+		padding: 1em 0.5em;
+		color: var(--black);
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+	}
+	nav a.active {
+		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}
 </style>
