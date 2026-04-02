@@ -75,15 +75,15 @@ h1 {
 }
 
 h2 {
-	font-size: 2.441em;
+	font-size: 1.563em;
 }
 
 h3 {
-	font-size: 1.953em;
+	font-size: 1.25em;
 }
 
 h4 {
-	font-size: 1.563em;
+	font-size: 1.25em;
 }
 
 h5 {
@@ -154,7 +154,27 @@ blockquote {
 
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	margin: 2rem 0 3rem;
+	//border-top: 1px solid rgb(var(--gray-light));
+}
+
+hr.gradient {
+	border: none;
+	height: 6px;
+	border-radius: 4px;
+	background: linear-gradient(90deg,
+			#ffe600,
+			#ff9a00,
+			#ff4d8d,
+			#ff0033);
+	background-size: 300% 100%;
+	animation: drift 8s ease-in-out infinite;
+	margin: 2rem 0 3rem;
+}
+
+hr.small {
+	width: 200px;
+
 }
 
 @media (max-width: 720px) {
@@ -183,4 +203,21 @@ hr {
 	clip-path: inset(50%);
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
+}
+
+
+/* Animations */
+
+@keyframes drift {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
 }

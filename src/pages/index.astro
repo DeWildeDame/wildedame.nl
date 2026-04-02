@@ -34,10 +34,62 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 					</h1>
 				</div>
 			</div>
+			<hr class="gradient" />
+			<h2>Welcome to my new digital home, I am Tamara,</h2>
 			<p>
-				Welcome to my new digital home, I am Tamara,<br />
-				nice to meet you.
+				Born on august 14 1986, nestled in the exciting city of the
+				Hague, Netherlands. <br />
+				I am a product designer and developer with a passion for creating.
+				<br />
+				With over 20 years of experience in various creative fields I bring
+				a diverse skill set and a unique perspective to my work. <br
+				/><br />
+				I have help build brands and products from the ground up.<br />
 			</p>
+			<hr class="small rot1" />
+			<h2>My objective</h2>
+			<p>
+				Work should be fun, driven by curiosity. I thrive in
+				environments where design and development go hand in hand.
+			</p>
+			<hr class="small rot2" />
+			<h2>My experience</h2>
+			<p>Listed below are the companies I've worked for:</p>
+			<div class="card">
+				<div class="logo">
+					<img
+						src="./assets/img/cv/recast-software.png"
+						width="100"
+						height="100"
+					/>
+				</div>
+				<div>
+					<h5>
+						UI/UX Designer & Front-End Developer<br />
+						<small>
+							<a
+								href="https://www.recastsoftware.com/"
+								target="_blank"
+							>
+								@Liquit (now Recast Software)
+							</a>
+						</small>
+					</h5>
+					<h6>(May 2016 – Present)</h6>
+					<p>
+						Joined from day one to lead UX and front-end development
+						of Liquit Workspace. Solely responsible for both
+						disciplines for over six years. <br /><br />
+						As the product evolved into a globally-used platform. After
+						the acquisition by Recast Software, continued developing the
+						platform under the new brand. Leading the design and release
+						of the Microsoft Teams app.
+					</p>
+				</div>
+			</div>
+
+			<hr class="small rot2" />
+			<h2>Get in touch</h2>
 			<p>
 				Take a peek at what I'm up to and exploring. <br />
 				Want to follow my projects or chat about something I’m working on?
@@ -122,6 +174,19 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 			transform: translateX(0);
 		}
 	}
+
+	/* card */
+	.card {
+		display: flex;
+		justify-content: center; /* horizontal centering */
+		align-items: top; /* vertical centering */
+	}
+	.card .logo {
+		width: 200px;
+		padding: 0 1em;
+	}
+
+	/* Hero */
 	.hero {
 		height: 240px;
 		display: flex;
