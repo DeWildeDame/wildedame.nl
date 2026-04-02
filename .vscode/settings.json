@@ -1,0 +1,9 @@
+{
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"editor.comments.insertSpace": false,
+	"evenBetterToml.formatter.indentTables": true,
+	"html.format.indentHandlebars": false,
+	"telemetry.feedback.enabled": false,
+	"telemetry.editStats.enabled": false
+}

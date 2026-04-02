@@ -1,49 +1,163 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="hero">
+        <div class="branding">
+          <img
+            src="/favicon.svg"
+            height="200"
+            width="200"
+            alt={SITE_TITLE}
+            class="logo"
+          />
+
+          <h1>
+            WildeDame.nl<br />
+            Adventurer Extraordinaire,<br />
+            <span class="type-container">
+              <span class="glow">$&nbsp;</span>
+              <span id="typed"></span>
+              <span class="cursor"></span>
+            </span>
+          </h1>
+        </div>
+      </div>
+      <p>
+        Welcome to my new digital home, I am Tamara,<br />
+        nice to meet you.
+      </p>
+      <p>
+        Take a peek at what I'm up to and exploring. <br />
+        Want to follow my projects or chat about something I’m working on?
+        <br />You can reach me through any of the links below.
+        <ul class="linklist">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/tamaraklaassen/"
+              target="_blank">LinkedIn</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/DeWildeDame" target="_blank">GitHub</a>
+          </li>
+        </ul>
+        If you really want to talk nerdy to me, leave a message at: <a
+          href="mailto:lxmf@d9b480b7c38f7286f9e540052fc6b708"
+          >lxmf@d9b480b7c38f7286f9e540052fc6b708</a
+        >
+      </p>
+      <Footer />
+    </main>
+  </body>
 </html>
+
+<style>
+  .hero {
+    height: 240px;
+    display: flex;
+    justify-content: center; /* horizontal centering */
+    align-items: center; /* vertical centering */
+  }
+
+  .branding {
+    display: flex;
+    align-items: center; /* aligns logo + text vertically */
+    gap: 2rem; /* space between logo and text */
+    width: 100%;
+  }
+  .branding h1 {
+    position: relative;
+  }
+  .logo {
+    width: 120px; /* adjust to taste */
+    height: auto;
+  }
+
+  .type-container {
+    display: inline-flex;
+    align-items: center;
+  }
+  .glow {
+    color: #f0f; /* neon cyan */
+    text-shadow:
+      0 0 4px #f0f,
+      0 0 8px #f0f,
+      0 0 12px #f0f;
+    margin-right: 4px;
+  }
+
+  .cursor {
+    width: 8px;
+    height: 1.2em;
+    margin-left: 4px;
+    background: #0ff; /* neon cyan */
+    box-shadow:
+      0 0 4px #0ff,
+      0 0 8px #0ff,
+      0 0 12px #0ff;
+    animation: blink 0.8s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script is:client>
+  const phrases = [
+    "Mesh Runner",
+    "Product Alchemist",
+    "Synth Whisperer",
+    "LoRa Nomad",
+    "Cyberpunk Naturalist",
+    "Pixel Sorceress",
+  ];
+
+  const el = document.getElementById("typed");
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+
+  function tick() {
+    const current = phrases[phraseIndex];
+
+    if (!deleting) {
+      if (current.slice(0, charIndex++) == "") {
+        el.textContent = " ";
+      } else el.textContent = current.slice(0, charIndex++);
+
+      if (charIndex > current.length) {
+        // Pause before deleting
+        deleting = true;
+        setTimeout(tick, 1600);
+        return;
+      }
+    } else {
+      el.textContent = current.slice(0, Math.max(0, charIndex--));
+      if (charIndex < 0) {
+        charIndex = 0;
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+      }
+    }
+
+    const speed = deleting ? 40 : 80;
+    setTimeout(tick, speed);
+  }
+
+  tick();
+</script>
