@@ -7,157 +7,266 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header />
-    <main>
-      <div class="hero">
-        <div class="branding">
-          <img
-            src="/favicon.svg"
-            height="200"
-            width="200"
-            alt={SITE_TITLE}
-            class="logo"
-          />
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="hero">
+				<div class="branding">
+					<img
+						src="/favicon.svg"
+						height="200"
+						width="200"
+						alt={SITE_TITLE}
+						class="logo"
+					/>
 
-          <h1>
-            WildeDame.nl<br />
-            Adventurer Extraordinaire,<br />
-            <span class="type-container">
-              <span class="glow">$&nbsp;</span>
-              <span id="typed"></span>
-              <span class="cursor"></span>
-            </span>
-          </h1>
-        </div>
-      </div>
-      <p>
-        Welcome to my new digital home, I am Tamara,<br />
-        nice to meet you.
-      </p>
-      <p>
-        Take a peek at what I'm up to and exploring. <br />
-        Want to follow my projects or chat about something I’m working on?
-        <br />You can reach me through any of the links below.
-        <ul class="linklist">
-          <li>
-            <a
-              href="https://www.linkedin.com/in/tamaraklaassen/"
-              target="_blank">LinkedIn</a
-            >
-          </li>
-          <li>
-            <a href="https://github.com/DeWildeDame" target="_blank">GitHub</a>
-          </li>
-        </ul>
-        If you really want to talk nerdy to me, leave a message at: <a
-          href="mailto:lxmf@d9b480b7c38f7286f9e540052fc6b708"
-          >lxmf@d9b480b7c38f7286f9e540052fc6b708</a
-        >
-      </p>
-      <Footer />
-    </main>
-  </body>
+					<h1>
+						WildeDame.nl<br />
+						Adventurer Extraordinaire,<br />
+						<span class="type-container">
+							<span class="glow">$&nbsp;</span>
+							<span id="typed"></span>
+							<span class="cursor"></span>
+						</span>
+					</h1>
+				</div>
+			</div>
+			<p>
+				Welcome to my new digital home, I am Tamara,<br />
+				nice to meet you.
+			</p>
+			<p>
+				Take a peek at what I'm up to and exploring. <br />
+				Want to follow my projects or chat about something I’m working on?
+				<br />You can reach me through any of the links below.
+				<ul class="linklist">
+					<li>
+						<a
+							href="https://www.linkedin.com/in/tamaraklaassen/"
+							target="_blank">LinkedIn</a
+						>
+					</li>
+					<li>
+						<a href="https://github.com/DeWildeDame" target="_blank"
+							>GitHub</a
+						>
+					</li>
+				</ul>
+				If you really want to talk nerdy to me, leave a message at: <a
+					href="mailto:lxmf@d9b480b7c38f7286f9e540052fc6b708"
+					>lxmf@d9b480b7c38f7286f9e540052fc6b708</a
+				>
+			</p>
+			<Footer />
+		</main>
+		<div class="scanlines layer1"></div>
+		<div class="scanlines layer2"></div>
+	</body>
 </html>
 
 <style>
-  .hero {
-    height: 240px;
-    display: flex;
-    justify-content: center; /* horizontal centering */
-    align-items: center; /* vertical centering */
-  }
+	.scanlines {
+		pointer-events: none;
+		position: fixed;
+		inset: 0;
+		z-index: 9999;
 
-  .branding {
-    display: flex;
-    align-items: center; /* aligns logo + text vertically */
-    gap: 2rem; /* space between logo and text */
-    width: 100%;
-  }
-  .branding h1 {
-    position: relative;
-  }
-  .logo {
-    width: 120px; /* adjust to taste */
-    height: auto;
-  }
+		animation:
+			scanline-move 6s linear infinite,
+			jitter 120ms steps(2, end) infinite;
+		mix-blend-mode: overlay;
+	}
 
-  .type-container {
-    display: inline-flex;
-    align-items: center;
-  }
-  .glow {
-    color: #f0f; /* neon cyan */
-    text-shadow:
-      0 0 4px #f0f,
-      0 0 8px #f0f,
-      0 0 12px #f0f;
-    margin-right: 4px;
-  }
+	.layer1 {
+		background: repeating-linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0.05) 0px,
+			rgba(255, 255, 255, 0.05) 1px,
+			transparent 2px,
+			transparent 4px
+		);
+		animation: scan1 6s linear infinite;
+	}
 
-  .cursor {
-    width: 8px;
-    height: 1.2em;
-    margin-left: 4px;
-    background: #0ff; /* neon cyan */
-    box-shadow:
-      0 0 4px #0ff,
-      0 0 8px #0ff,
-      0 0 12px #0ff;
-    animation: blink 0.8s steps(1) infinite;
-  }
+	.layer2 {
+		background: repeating-linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0.03) 0px,
+			rgba(255, 255, 255, 0.03) 1px,
+			transparent 3px,
+			transparent 6px
+		);
+		animation: scan2 9s linear infinite;
+	}
 
-  @keyframes blink {
-    50% {
-      opacity: 0;
-    }
-  }
+	@keyframes scanline-move {
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(4px);
+		}
+	}
+
+	@keyframes jitter {
+		0% {
+			transform: translateX(0);
+		}
+		50% {
+			transform: translateX(-1px);
+		}
+		100% {
+			transform: translateX(0);
+		}
+	}
+	.hero {
+		height: 240px;
+		display: flex;
+		justify-content: center; /* horizontal centering */
+		align-items: center; /* vertical centering */
+	}
+
+	.branding {
+		display: flex;
+		align-items: center; /* aligns logo + text vertically */
+		gap: 2rem; /* space between logo and text */
+		width: 100%;
+	}
+	.branding h1 {
+		position: relative;
+	}
+	.logo {
+		width: 120px; /* adjust to taste */
+		height: auto;
+	}
+
+	.type-container {
+		background: rgb(var(--dark-purple));
+		padding: 0.45em 1em;
+		display: inline-flex;
+		align-items: center;
+		width: 100%;
+		margin-top: 0.25em;
+		margin-left: -1em;
+		border-radius: 4px;
+	}
+	.glow {
+		color: #f0f; /* neon cyan */
+		text-shadow:
+			0 0 4px #f0f,
+			0 0 8px #f0f,
+			0 0 12px #f0f;
+		margin-right: 4px;
+	}
+
+	.cursor {
+		width: 8px;
+		height: 1.2em;
+		margin-left: 4px;
+		background: #0ff; /* neon cyan */
+		box-shadow:
+			0 0 4px #0ff,
+			0 0 8px #0ff,
+			0 0 12px #0ff;
+		animation: blink 0.8s steps(1) infinite;
+	}
+
+	/* Glitch effect */
+	.glitch {
+		animation: glitch 150ms steps(2, end);
+	}
+	@keyframes glitch {
+		0% {
+			text-shadow:
+				2px 0 #f0f,
+				-2px 0 #0ff;
+			transform: translate(0);
+		}
+		20% {
+			text-shadow:
+				-2px 0 #f0f,
+				2px 0 #0ff;
+			transform: translate(-5px, 3px);
+		}
+		40% {
+			text-shadow:
+				2px 0 #f0f,
+				-2px 0 #0ff;
+			transform: translate(2px, -7px);
+		}
+		60% {
+			text-shadow:
+				-2px 0 #f0f,
+				2px 0 #0ff;
+			transform: translate(-3px, -6px);
+		}
+		80% {
+			text-shadow:
+				2px 0 #f0f,
+				-2px 0 #0ff;
+			transform: translate(4px, 6px);
+		}
+		100% {
+			text-shadow: none;
+			transform: translate(0);
+		}
+	}
+
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
 </style>
 
 <script is:client>
-  const phrases = [
-    "Mesh Runner",
-    "Product Alchemist",
-    "Synth Whisperer",
-    "LoRa Nomad",
-    "Cyberpunk Naturalist",
-    "Pixel Sorceress",
-  ];
+	const phrases = [
+		"Mesh Runner",
+		"Product Alchemist",
+		"Synth Whisperer",
+		"LoRa Nomad",
+		"Pixel Sorceress",
+	];
 
-  const el = document.getElementById("typed");
-  let phraseIndex = 0;
-  let charIndex = 0;
-  let deleting = false;
+	const typedText = document.getElementById("typed");
+	const symbol = document.querySelector(".type-container .glow");
+	let phraseIndex = 0;
+	let charIndex = 0;
+	let deleting = false;
 
-  function tick() {
-    const current = phrases[phraseIndex];
+	function glitch() {
+		symbol.classList.add("glitch");
+		setTimeout(() => symbol.classList.remove("glitch"), 150);
+	}
 
-    if (!deleting) {
-      if (current.slice(0, charIndex++) == "") {
-        el.textContent = " ";
-      } else el.textContent = current.slice(0, charIndex++);
+	function tick() {
+		const current = phrases[phraseIndex];
 
-      if (charIndex > current.length) {
-        // Pause before deleting
-        deleting = true;
-        setTimeout(tick, 1600);
-        return;
-      }
-    } else {
-      el.textContent = current.slice(0, Math.max(0, charIndex--));
-      if (charIndex < 0) {
-        charIndex = 0;
-        deleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-      }
-    }
+		if (!deleting) {
+			typedText.textContent = current.slice(0, charIndex++);
+			if (charIndex > current.length) {
+				glitch(); // glitch when fully typed
+				deleting = true;
+				setTimeout(tick, 1200);
+				return;
+			}
+		} else {
+			if (charIndex === current.length) glitch(); // glitch before deletion starts
 
-    const speed = deleting ? 40 : 80;
-    setTimeout(tick, speed);
-  }
+			typedText.textContent = current.slice(0, Math.max(0, charIndex--));
+			if (charIndex < 0) {
+				charIndex = 0;
+				deleting = false;
+				phraseIndex = (phraseIndex + 1) % phrases.length;
+			}
+		}
 
-  tick();
+		const speed = deleting ? 60 : 80;
+		setTimeout(tick, speed);
+	}
+
+	tick();
 </script>

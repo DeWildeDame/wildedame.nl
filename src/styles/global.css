@@ -17,8 +17,9 @@
 		0 16px 32px rgba(var(--gray), 33%);
 
 	--dark-background: linear-gradient(180deg, rgba(52, 17, 71, 1) 0%, rgba(0, 0, 0, 1) 100%);
+	--dark-purple: 12, 4, 17;
 
-	--text-color:256,256,256;
+	--text-color: 256, 256, 256;
 }
 
 body {
@@ -31,10 +32,10 @@ body {
 
 	/* Make sure the background covers the entire viewport */
 	background-attachment: fixed;
-	
+
 	/* Ensure the body takes up the full height of the viewport */
 	width: 100%;
-	height:100vh;
+	height: 100vh;
 
 	/* We don't like breaking words in the middle of a line, but we do want to break long words that would otherwise overflow */
 	word-wrap: break-word;
@@ -46,13 +47,18 @@ body {
 	/* Nice and readable line height */
 	font-size: 20px;
 	line-height: 1.7;
+
 }
+
+
+
 main {
 	width: 720px;
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 3em 1em;
 }
+
 h1,
 h2,
 h3,
@@ -63,78 +69,99 @@ h6 {
 	color: rgb(var(--text-color));
 	line-height: 1.2;
 }
+
 h1 {
 	font-size: 1.6em;
 }
+
 h2 {
 	font-size: 2.441em;
 }
+
 h3 {
 	font-size: 1.953em;
 }
+
 h4 {
 	font-size: 1.563em;
 }
+
 h5 {
 	font-size: 1.25em;
 }
+
 strong,
 b {
 	font-weight: 700;
 }
+
 a {
 	color: var(--accent);
 }
+
 a:hover {
 	color: var(--accent);
 }
+
 p {
 	margin-bottom: 1em;
 }
+
 .prose p {
 	margin-bottom: 2em;
 }
+
 textarea {
 	width: 100%;
 	font-size: 16px;
 }
+
 input {
 	font-size: 16px;
 }
+
 table {
 	width: 100%;
 }
+
 img {
 	max-width: 100%;
 	height: auto;
 	border-radius: 8px;
 }
+
 code {
 	padding: 2px 5px;
 	background-color: rgb(var(--gray-light));
 	border-radius: 2px;
 }
+
 pre {
 	padding: 1.5em;
 	border-radius: 8px;
 }
-pre > code {
+
+pre>code {
 	all: unset;
 }
+
 blockquote {
 	border-left: 4px solid var(--accent);
 	padding: 0 0 0 20px;
 	margin: 0;
 	font-size: 1.333em;
 }
+
 hr {
 	border: none;
 	border-top: 1px solid rgb(var(--gray-light));
 }
+
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;
 	}
+
 	main {
 		padding: 1em;
 	}
