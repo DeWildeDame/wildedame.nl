@@ -1,3 +1,4 @@
 
 # A simple astro website
-Something to serve as a digital home in the ever void of the internet.
+Something to serve as a digital home in the ever growing void of the internet.
+
