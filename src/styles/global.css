@@ -31,15 +31,19 @@
 
 	/* Random page vars */
 	--void-0: #0d0014;
-	/* darkest top */
+
 	--void-1: #24002b;
 	--void-2: #3a0044;
 	--void-3: #52005e;
 	--void-4: #6b0079;
 	--void-5: #880096;
 	--void-6: #ff4d8d;
-	/* bright bottom */
+
+	/* screensizees		*/
+	--bp-xs: 600;
 }
+
+
 
 html,
 body {

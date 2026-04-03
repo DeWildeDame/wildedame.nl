@@ -7,15 +7,7 @@
 		max-width: 720px;
 	}
 
-	header h2 {
-		margin: 0;
-		font-size: 1em;
-	}
 
-	header h2 a,
-	header h2 a.active {
-		text-decoration: none;
-	}
 
 	header nav {
 		display: flex;
@@ -32,5 +24,38 @@
 
 	header nav a.active {
 		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}
+
+
+	/* Header overrides because I am lazy */
+	.terminal header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0;
+		width: calc(100% - 2em);
+		margin: 0;
+	}
+
+	.terminal header nav {
+		display: flex;
+		align-items: normal;
+		justify-content: left;
+		gap: 1em;
+
+	}
+
+	.terminal header nav a {
+		padding: 0.75em 0.5em 0;
+		color: var(--dark-purple);
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+	}
+
+	.terminal header nav a.active {
+		text-decoration: none;
+		background: var(--void-6);
+		color: var(--void-0);
 		border-bottom-color: var(--accent);
 	}
