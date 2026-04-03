@@ -48,7 +48,7 @@
 
 	.terminal header nav a {
 		padding: 0.75em 0.5em 0;
-		color: var(--dark-purple);
+		color: var(--deep-purple);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 	}
