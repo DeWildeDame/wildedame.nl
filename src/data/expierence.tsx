@@ -7,6 +7,7 @@ export const experience = [
 		period: "May 2016 – Present",
 		description: `
 	  Joined from day one to lead UX and front-end development of Liquit Workspace. Solely responsible for both disciplines for over six years.
+	  
 	  As the product evolved into a globally-used platform, I continued shaping the experience. After the acquisition by Recast Software, I continued developing the platform under the new brand, leading the design and release of the Microsoft Teams app.
 	`
 	}, {

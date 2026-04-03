@@ -7,21 +7,30 @@ const today = new Date();
 		<h6>
 			&#x1F12F; {today.getFullYear()} wildedame.nl. All wrongs reserved.
 		</h6>
+
+		<h6>
+			<a href="https://astro.build/" target="_blank">
+				Powered by Astro
+			</a>
+		</h6>
 	</div>
+	<style>
+		footer {
+			margin: 0 auto;
+
+			left: 0;
+			bottom: 0;
+			width: 100%;
+
+			padding: 1.5em 0;
+		}
+
+		footer div {
+			width: 720px;
+			margin: auto;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+	</style>
 </footer>
-<style>
-	footer {
-		margin: 0 auto;
-
-		left: 0;
-		bottom: 0;
-		width: 100%;
-
-		padding: 1.5em 0;
-	}
-
-	footer div {
-		width: 720px;
-		margin: auto;
-	}
-</style>

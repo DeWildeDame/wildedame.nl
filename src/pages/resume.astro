@@ -1,0 +1,17 @@
+---
+import AboutHeroImage from "../assets/img/cv/header-image.jpg";
+import Layout from "../layouts/BlogPost.astro";
+import { experience } from "../data/expierence";
+import CvCard from "../components/CvCard.astro";
+---
+
+<Layout
+	title="Curriculum vitae"
+	description="Lorem ipsum dolor sit amet"
+	pubDate={new Date("April 03 2026")}
+	heroImage={AboutHeroImage}
+>
+	<section class="experience">
+		{experience.map((item: any) => <CvCard {...item} />)}
+	</section>
+</Layout>

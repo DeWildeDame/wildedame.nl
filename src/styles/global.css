@@ -1,9 +1,3 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
-
 :root {
 	--accent: 255, 242, 58;
 	--accent-dark: 232, 62, 57;
@@ -20,6 +14,18 @@
 	--dark-purple: 12, 4, 17;
 
 	--text-color: 256, 256, 256;
+
+	--orange-gradient: linear-gradient(90deg,
+			#ffe600,
+			#ff9a00,
+			#ff4d8d,
+			#ff0033);
+
+	--white-gradient: linear-gradient(90deg,
+			#ffffff,
+			#c7c7c7,
+			#ede1dc,
+			#919191);
 }
 
 body {
@@ -97,6 +103,13 @@ b {
 
 a {
 	color: var(--accent);
+
+}
+
+a:hover {
+	/* Set a neon glow to links on hover */
+	filter: drop-shadow(0 0 4px rgb(var(--accent-dark))) drop-shadow(0 0 8px rgb(var(--accent-dark)));
+
 }
 
 a:hover {
@@ -162,19 +175,49 @@ hr.gradient {
 	border: none;
 	height: 6px;
 	border-radius: 4px;
-	background: linear-gradient(90deg,
-			#ffe600,
-			#ff9a00,
-			#ff4d8d,
-			#ff0033);
+	background: var(--orange-gradient);
 	background-size: 300% 100%;
 	animation: drift 8s ease-in-out infinite;
 	margin: 2rem 0 3rem;
 }
 
+
+hr.gradient.white {
+	background: var(--white-gradient);
+}
+
+
 hr.small {
+
 	width: 200px;
 
+}
+
+hr.tiny {
+
+	width: 2em;
+
+}
+
+/* Gradient header */
+.gradient-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	/* space between text and bars */
+	margin: 3rem 0;
+}
+
+.gradient-header::before,
+.gradient-header::after {
+	content: "";
+	flex: 1;
+	height: 6px;
+	border-radius: 4px;
+	background: linear-gradient(90deg, #ffe600, #ff9a00, #ff4d8d, #ff0033);
+	background-size: 300% 100%;
+	animation: drift 8s ease-in-out infinite;
 }
 
 @media (max-width: 720px) {
