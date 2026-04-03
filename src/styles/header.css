@@ -1,0 +1,36 @@
+	header {
+		margin: 0;
+		padding: 0 1em;
+		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+		margin: auto;
+		width: 100%;
+		max-width: 720px;
+	}
+
+	header h2 {
+		margin: 0;
+		font-size: 1em;
+	}
+
+	header h2 a,
+	header h2 a.active {
+		text-decoration: none;
+	}
+
+	header nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	header nav a {
+		padding: 1em 0.5em;
+		color: var(--black);
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+	}
+
+	header nav a.active {
+		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}

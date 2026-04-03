@@ -20,7 +20,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 						height="200"
 						width="200"
 						alt={SITE_TITLE}
-						class="logo"
+						class="logo hide-xs"
 					/>
 
 					<h1>
@@ -145,6 +145,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 		display: flex;
 		justify-content: center; /* horizontal centering */
 		align-items: center; /* vertical centering */
+		max-width: calc(100% - 2rem);
 	}
 
 	.branding {
@@ -231,7 +232,9 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 	.social-links li:hover {
 		animation: glitch-tiny 300ms steps(8);
 	}
-
+	.gradient-header {
+		max-width: calc(100% - 2rem);
+	}
 	.gradient-header span {
 		white-space: nowrap;
 		font-size: 1.8rem;
