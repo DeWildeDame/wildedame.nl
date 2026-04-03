@@ -1,0 +1,113 @@
+	/* Header overrides because I am lazy */
+
+
+	/* Reset the links */
+	.terminal a:hover {
+		filter: none;
+		/* Now that the filter is reset we can do funky terminal oreientated fun stuff again. */
+	}
+
+
+	.terminal header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		padding: 0;
+		min-width: 100%;
+		margin: 0;
+
+		border-bottom: var(--void-6) solid 1px;
+	}
+
+	/* Nav stays as a row */
+	.terminal header nav {
+		display: flex;
+		gap: 1em;
+	}
+
+	/* Nav links */
+	.terminal header nav a {
+		padding: 0.5em 0.5em 0;
+		color: var(--deep-purple);
+		text-decoration: none;
+	}
+
+	.terminal header nav .logo {
+		position: absolute;
+		margin-top: 6px;
+		padding: 6px 0 0 5px;
+		margin-left: 1em;
+
+	}
+
+	.terminal header nav img {
+		width: 24px;
+		padding: 0;
+
+	}
+
+	.terminal header nav .internal-links {
+		height: 37px;
+		margin-top: 0;
+		margin-left: 4em;
+
+	}
+
+	/* Active link */
+	.terminal header nav a.active {
+		height: 2em;
+		background: var(--void-6);
+		color: var(--void-0);
+
+	}
+
+
+
+	.terminal content {
+		display: block;
+		padding: 0.5em 1.5em;
+	}
+
+	.terminal .comment {
+		color: var(--void-1);
+	}
+
+
+
+
+	.terminal .terminal-type {
+		font-family: "Monoid", monospace;
+		color: var(--void-6);
+		font-size: 1.2rem;
+		white-space: pre;
+	}
+
+	.terminal .cursor {
+		display: inline-block;
+		animation: blink 0.8s steps(1) infinite;
+	}
+
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
+
+	.terminal .choices {
+		margin-top: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.terminal .choice {
+		padding: 0.4rem 0.6rem;
+		border-left: 4px solid transparent;
+		cursor: pointer;
+	}
+
+	.terminal .choice.active {
+		border-left-color: var(--void-6);
+		color: var(--void-6);
+	}

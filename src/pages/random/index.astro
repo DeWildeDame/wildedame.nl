@@ -6,13 +6,89 @@ import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import { startTyping } from "../../../public/assets/scripts/terminal-typing.jsx";
 
-const posts = (await getCollection("blog")).sort(
-	(a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+import Content from "../../content/terminal/01-first-choice.mdx";
+
+const posts = await getCollection("terminal");
+const { slug } = Astro.params;
+
+const current = posts.find((p) => p.id === slug);
+console.log(current);
+
+const choices = current?.data.terminalChoices ?? [];
+console.log(choices);
 ---
 
-<!doctype html>
+<!--
+
+                                                                                                  
+                                                                                                  
+                                                                                                  
+                                                                                                  
+                                                                                                  
+                                                                                                  
+                                                                                                  
+                                                                                                  
+                                                                                                  
+                                                                                                  
+                                                                                                  
+                                             :.:                                                  
+                                   == *--:=++.----=%++=.                                          
+                              .=..--:+-*-+=#=:*%#=*:*#*++=--=-                                    
+                           .-*.:=:++*==+++===*==-=***+#*==%=-*=:                                  
+                          - +%.#:**-*+#*=-#+-#+=#+* -.-:% :-%=+#.                                 
+                        : -=+#:*-#-:-+.+:+====:+%*++*-*##=.*-@%#::=                               
+                     :=+ ::+*#+:*-:::*:-=**=*-+*+++*.#+#*-%%.+.+#+===                             
+                    -=:.*-*-*-*.%==:=#-+=+-=+*++=--*#-*--%==**:+#+*.+*-                           
+                   +-+#  -:=+.:*=#=:+:---+:++=+++=*==++%+%%%#*=+%@%=-#                            
+                  + -%...:.-#**.+#-*+**###=-=+*=+=+**@%%+=****##@%%%*=+*                          
+                 .@...:-.:%#                      :        --..: %*%%@%#-                         
+                 = ..*+%%%                                        .@@@#@*#                        
+                 ==*-%@%:                                        .. #@@%* +                       
+                 . %%@+                                          .   .%@@*%                       
+                =: %@ :                                          .    :=@@%                       
+                **.%@.                                          ..     ##*%                       
+                %###@ .      .                                  ...   .:%%@                       
+                %@#@@.=.                                         ....:*#@@@                       
+                @#%%@##-    .                                   .:.:.-##@@@                       
+                 #*%%%*+.                                        .:::+@#@@                        
+                .-*@%%-*.    .-....  ..:..      .    .::-==---++:: ::@#%@@: .                     
+              .= . +%@+*    .     .  .. .:--:.   .:-===-:::..  .--+..@%@%- %                      
+              :+-+.. =*:      .% -###*-:=::-:.   .-+==%==@*#=:%+:==::%@ . ##                      
+              --=:.-.:#:    .:%=. #@@# .#=.      :.::*: #@@+.-%*+==-:@@:*##:=                     
+              :*=...-:%-    .::. . %#                 .  #%...-+*-..:@%---#+                      
+               -::-=-. =        .::. :-                =:  .:::....:-#+#*=:                       
+                 .-:   - .   .                   .                .%-+-==-                        
+                 : .   .   *     . .=.                  .    .   .::=#:=..                        
+                  -+  ....: ... .   --:          .         . . ::-=== .=.                ...    ..
+          =++          ..... .:.     =:. +===+=    .-.        ..::--+...    :-           ..... :..
+         *+++      -   :....=+**     .. .-=+=-      ..          :--=* =      =           .... =...
+         =+=  +*+#+  ...:....=++=..::....-.......           .*+.:-==:=  .    .       ::=  -:.....=
+          +   +++#**++*+.....:-:-:==--.......... . :==#.  .-==##:=++  .:%=    -::..++====.*-==:=+-
+   -***###-.::#++*#=***==-:.::.:+#*+++-=-:.--:%+.#.........--*#=..:......#**#. =*%%%#**++:%@#=.:++
+:.+#*==:.=+*=-:-=.+=*#%-=+==.::..##+==--::.:..:..........:%%#:%#+==+-..#-:*:.===++=:==*+-++-*:..:-
+..=+++-=+=:-:..-*+-+*=-:=::----..+:.=-..==-=#---.:.....=#+..#..:%@+-+=#%*--=%@**+*+=...:::.*%#*::.
+...-%+=.......=%..:==-:+*#-.:--::%::-.:#%@%**-===#-=+:::*.....::**:*%%#+--=-.#=-==+.*-=---.:*+....
+..:##=:...-:*#*=-=+-:-##+#*#%#*--+**%#=-++*+---:++=........-::.+@*#@%+.:+-=+#...-::===--=+++*.=..-
+---*=...=+=*=.-=-=+=++#@%*-#+-:.:-**=+*==-*=....-#+=-::...:+::.:::=*:...-+%+-..=----=*+#%%**#*##*+
+*:.++.-#**==+*-:::=#%%%%@*=*@#*=-*%%+#=#++.*=:..:+#+--.....+..+:..::..--*%%%%%%%*%#=:.-++%@+*#@%+*
+*-+*=+%#*#%#=+%+*#%%@@@@%#+*%+===*###@#**+*@+----=%#%@@*....:#-....*#%#%%@##*##*#*+*+**+%%%@%@#==%
+***+::::.:+%@%###%**#%@@@%%#=-----=++#%*%%@@++==:.....+*-:...=#-..:+=..+#*%%%**@%@@@#%%@@###++==*@
+***=-:-*@#==+*#%**###%%*+=-===+==+*=+*%%%#@@=:*=.......#.....#@#*+:...==+##%###*==%@%++*@%%@@*#@@%
+@#%@@@%+*+---=+=+###+::-=-::=*##%#**%%@@%@@%%#%%%=:..::=.....#%%%#...*===*%@#*==*#%%+-=+=#%%%%*%*-
+@@#%%@@%@*--=**+**#%=-+#+---+*%@@##%%#++##*+====+*=--...:=..#####-.*%#**%@*==---+*#%#%#**##*=:*+..
+@%%##@%%%#=--:=##%@@*#*--:--++#@*++**%@@%@@%%%%**#*=:....:=*==++*%%@@@@%%%*=-=+=-..-+#%*+*---+#=+=
+#**@@@@@%##****+*%@@@#==+****+%#==--=*%@@@@%%:...=*%=::-*@=@%+----=#@*+##%@#**+**+=****###=*==-:-=
+%###**#%###%@@@@@%@@@@@@@@%%@%%#+==*%%%@%%%%%:.....+*=-==++=---::--+%##++**#++=**+**@#=*%*==+*=:=*
+%%#####**+#@@%%#%#+#%*#%%@#*+***#%##++##*=#@@=.....-#==:.....*##*#%@@@#**#*+---+*%##@#==#*=+#%#::+
+%%@@@@@@@*%@%%#+==++=-=%@##%*=*%@@@%%@%=-#@@%@+......:--...=*@@@%@@@@%%##++==+##%%@@%##%**#**#%#%@
+%@%%%#*%#%%**=:=*##+--*%###%*++*###%#%%%@@%###%@%%--#%*+===*@@@@@%%@@@%*%@@@@@@@@@@@@@@%%%%%%@@@@@
++##**##**+=+++=**#*******@@%**+++##*%@@#*=-=+++*#@*##=--=*#%%#*+***#@###==*#@@#%%#**##**==++*#@**+
+@@@*=+#%@#*==:+#*:....:==##+----:=+@@#+=--=+++**#%***+*%%%%@%%#***+=****+=-==-+**+++=+*++*++*%*--=
+
+
+--><!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
@@ -23,7 +99,6 @@ const posts = (await getCollection("blog")).sort(
 			
 			Shout out to Andreas (https://larsenwork.com/) as well,
 			Monoid has to be one of my favorite fonts out here!
-
 			*/
 			@font-face {
 				font-family: "monoidbold";
@@ -73,7 +148,7 @@ const posts = (await getCollection("blog")).sort(
 				background: var(--void-0);
 				color: var(--void-6);
 				font-family: "monoidregular", monospace;
-				padding: 1.5rem;
+				padding: 0;
 				border-radius: 8px;
 				line-height: 1.6;
 				font-size: 0.95rem;
@@ -87,85 +162,47 @@ const posts = (await getCollection("blog")).sort(
 					transparent 3px
 				);
 			}
-
-			/*
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}*/
 		</style>
 	</head>
 	<body>
 		<div class="terminal">
 			<Header />
-			<span class="comment">
-				Delivered by machines, built with humanity. <br />
-				The font used is <a
-					href="https://larsenwork.com/monoid/"
-					target="_blank">Monoid</a
-				>.
-			</span>
+			<content>
+				<span class="comment">
+					<br />
+					Delivered by machines, built with humanity. <br />
+					The font used is <a
+						href="https://larsenwork.com/monoid/"
+						target="_blank">Monoid</a
+					>.<br />
+					<br />
+					Font packaged by <a
+						href="https://larsenwork.com/monoid/"
+						target="_blank"
+					>
+						Font Squirrel.</a
+					>
+					My favorite font generator since 2009 ❤️.
+				</span>
+
+				<hr />
+				<div id="mdx-source" class="hidden">
+					<Content />
+				</div>
+
+				<div id="terminal-output"></div>
+
+				<div id="choices" class="choices">
+					{choices}
+				</div>
+				<div class="terminal-type"></div>
+				<span id="typed-text"></span>
+			</content>
 		</div>
 		<!--<Footer />-->
 	</body>
 </html>
+<script type="module" client:load>
+	import { startTyping } from "../assets/scripts/terminal-typing.js";
+	startTyping();
+</script>
