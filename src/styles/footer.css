@@ -10,8 +10,15 @@
 
 		footer div {
 			width: 720px;
+			max-width: 100%;
 			margin: auto;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+		}
+
+		@media only screen and (max-width: 720px) {
+			footer div {
+				display: block;
+			}
 		}
