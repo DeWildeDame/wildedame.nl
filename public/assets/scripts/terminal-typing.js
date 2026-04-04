@@ -11,6 +11,7 @@ export function startTyping() {
 		if (index >= blocks.length) {
 			choices.classList.remove("hidden");
 			initChoiceNavigation();
+			scrollToBottom();
 			return;
 		}
 
@@ -32,6 +33,7 @@ export function startTyping() {
 		// Non-text blocks appear instantly
 		if (!isText) {
 			clone.style.opacity = 1;
+			scrollToBottom();
 			index++;
 			setTimeout(typeNextBlock, 200);
 			return;
@@ -65,6 +67,7 @@ export function startTyping() {
 			if (node.nodeType === Node.ELEMENT_NODE) {
 				const el = node.cloneNode(true);
 				clone.insertBefore(el, cursor);
+				scrollToBottom();
 				nodeIndex++;
 				typeNextNode();
 				return;
@@ -79,6 +82,7 @@ export function startTyping() {
 				function typeChar() {
 					if (charIndex < text.length) {
 						span.textContent += text[charIndex];
+						scrollToBottom();
 						charIndex++;
 						setTimeout(typeChar, 45);
 					} else {
@@ -112,7 +116,16 @@ export function startTyping() {
 
 		updateActive();
 
+		// Block more keys!
+		const blocked = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", " "];
+
 		document.addEventListener("keydown", (e) => {
+
+
+			if (blocked.includes(e.key)) {
+				e.preventDefault();
+			}
+
 			if (e.key === "ArrowDown") {
 				activeIndex = (activeIndex + 1) % choiceEls.length;
 				updateActive();
@@ -129,4 +142,16 @@ export function startTyping() {
 	}
 
 	typeNextBlock();
+}
+
+
+function scrollToBottom() {
+	requestAnimationFrame(() => {
+		requestAnimationFrame(() => {
+			window.scrollTo({
+				top: document.body.scrollHeight,
+				behavior: "smooth"
+			});
+		});
+	});
 }

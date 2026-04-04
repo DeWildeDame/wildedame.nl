@@ -111,3 +111,9 @@
 		border-left-color: var(--void-6);
 		color: var(--void-6);
 	}
+
+
+	#terminal-output {
+		max-height: none;
+		overflow: visible;
+	}
