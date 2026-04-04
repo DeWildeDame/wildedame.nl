@@ -7,9 +7,9 @@ export function startTyping() {
 	let index = 0;
 
 	function typeNextBlock() {
-		// End of all blocks → show choices
 		if (index >= blocks.length) {
 			choices.classList.remove("hidden");
+			initChoiceNavigation();
 			return;
 		}
 
@@ -18,7 +18,6 @@ export function startTyping() {
 		clone.style.opacity = 0;
 		output.appendChild(clone);
 
-		// Detect text blocks
 		const isText =
 			clone.tagName === "P" ||
 			clone.tagName === "H1" ||
@@ -28,7 +27,6 @@ export function startTyping() {
 			clone.tagName === "H5" ||
 			clone.tagName === "H6";
 
-		// Non‑text blocks appear instantly
 		if (!isText) {
 			clone.style.opacity = 1;
 			index++;
@@ -36,45 +34,91 @@ export function startTyping() {
 			return;
 		}
 
-		// Character‑by‑character typing for text blocks
-		const html = clone.innerHTML;
+		// Parse child nodes instead of raw HTML
+		const nodes = Array.from(original.childNodes);
 		clone.innerHTML = "";
 		clone.style.opacity = 1;
 
-		// Cursor + text span
 		const cursor = document.createElement("span");
 		cursor.className = "cursor";
 		cursor.textContent = "█";
-
-		const textSpan = document.createElement("span");
-		textSpan.className = "typed-text";
-
-		clone.appendChild(textSpan);
 		clone.appendChild(cursor);
 
+		let nodeIndex = 0;
 		let charIndex = 0;
 
-		function typeChar() {
-
-			if (charIndex < html.length) {
-				if (html[charIndex] === "<") {
-					charIndex = html.indexOf(">", charIndex) + 1;
-				} else {
-					charIndex++;
-				}
-				textSpan.innerHTML = html.slice(0, charIndex);
-
-				setTimeout(typeChar, 45);
-			} else {
-				// Block finished typing
+		function typeNextNode() {
+			if (nodeIndex >= nodes.length) {
 				cursor.remove();
 				index++;
 				setTimeout(typeNextBlock, 200);
+				return;
+			}
+
+			const node = nodes[nodeIndex];
+
+			// If it's an element (like <br> or <a>), append instantly
+			if (node.nodeType === Node.ELEMENT_NODE) {
+				const el = node.cloneNode(true);
+				clone.insertBefore(el, cursor);
+				nodeIndex++;
+				typeNextNode();
+				return;
+			}
+
+			// If it's a text node, type it char-by-char
+			if (node.nodeType === Node.TEXT_NODE) {
+				const text = node.textContent;
+				const span = document.createElement("span");
+				clone.insertBefore(span, cursor);
+
+				function typeChar() {
+					if (charIndex < text.length) {
+						span.textContent += text[charIndex];
+						charIndex++;
+						setTimeout(typeChar, 45);
+					} else {
+						charIndex = 0;
+						nodeIndex++;
+						typeNextNode();
+					}
+				}
+
+				typeChar();
 			}
 		}
 
-		typeChar();
+		typeNextNode();
 	}
 
 	typeNextBlock();
+}
+
+
+function initChoiceNavigation() {
+	const choiceEls = document.querySelectorAll(".choice");
+	let activeIndex = 0;
+
+	function updateActive() {
+		choiceEls.forEach((el, i) => {
+			el.classList.toggle("active", i === activeIndex);
+		});
+	}
+
+	updateActive();
+
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "ArrowDown") {
+			activeIndex = (activeIndex + 1) % choiceEls.length;
+			updateActive();
+		}
+		if (e.key === "ArrowUp") {
+			activeIndex = (activeIndex - 1 + choiceEls.length) % choiceEls.length;
+			updateActive();
+		}
+		if (e.key === "Enter") {
+			const target = choiceEls[activeIndex].dataset.target;
+			window.location.href = target;
+		}
+	});
 }

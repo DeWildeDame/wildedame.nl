@@ -10,11 +10,11 @@ import { startTyping } from "../../../public/assets/scripts/terminal-typing.jsx"
 
 import Content from "../../content/terminal/01-first-choice.mdx";
 
-const posts = await getCollection("terminal");
-const { slug } = Astro.params;
-
-const current = posts.find((p) => p.id === slug);
-console.log(current);
+const posts = (await getCollection("terminal")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+console.log(posts);
+const current = posts[0];
 
 const choices = current?.data.terminalChoices ?? [];
 console.log(choices);
@@ -192,8 +192,17 @@ console.log(choices);
 
 				<div id="terminal-output"></div>
 
-				<div id="choices" class="choices">
-					{choices}
+				<div id="choices" class="choices hidden">
+					{
+						choices.map((c, i) => (
+							<div
+								class={`choice ${i === 0 ? "active" : ""}`}
+								data-target={c.target}
+							>
+								{c.label}
+							</div>
+						))
+					}
 				</div>
 				<div class="terminal-type"></div>
 				<span id="typed-text"></span>
