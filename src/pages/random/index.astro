@@ -13,11 +13,10 @@ import Content from "../../content/terminal/01-first-choice.mdx";
 const posts = (await getCollection("terminal")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-console.log(posts);
+
 const current = posts[0];
 
 const choices = current?.data.terminalChoices ?? [];
-console.log(choices);
 ---
 
 <!--
