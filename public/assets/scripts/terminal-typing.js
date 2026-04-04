@@ -7,6 +7,7 @@ export function startTyping() {
 	let index = 0;
 
 	function typeNextBlock() {
+		// End of all blocks → reveal choices + enable keyboard nav
 		if (index >= blocks.length) {
 			choices.classList.remove("hidden");
 			initChoiceNavigation();
@@ -18,6 +19,7 @@ export function startTyping() {
 		clone.style.opacity = 0;
 		output.appendChild(clone);
 
+		// Detect text blocks
 		const isText =
 			clone.tagName === "P" ||
 			clone.tagName === "H1" ||
@@ -27,6 +29,7 @@ export function startTyping() {
 			clone.tagName === "H5" ||
 			clone.tagName === "H6";
 
+		// Non-text blocks appear instantly
 		if (!isText) {
 			clone.style.opacity = 1;
 			index++;
@@ -39,6 +42,7 @@ export function startTyping() {
 		clone.innerHTML = "";
 		clone.style.opacity = 1;
 
+		// Cursor
 		const cursor = document.createElement("span");
 		cursor.className = "cursor";
 		cursor.textContent = "█";
@@ -57,7 +61,7 @@ export function startTyping() {
 
 			const node = nodes[nodeIndex];
 
-			// If it's an element (like <br> or <a>), append instantly
+			// ELEMENT NODE → append instantly (handles <br>, <a>, <em>, etc.)
 			if (node.nodeType === Node.ELEMENT_NODE) {
 				const el = node.cloneNode(true);
 				clone.insertBefore(el, cursor);
@@ -66,7 +70,7 @@ export function startTyping() {
 				return;
 			}
 
-			// If it's a text node, type it char-by-char
+			// TEXT NODE → type character-by-character
 			if (node.nodeType === Node.TEXT_NODE) {
 				const text = node.textContent;
 				const span = document.createElement("span");
@@ -91,34 +95,38 @@ export function startTyping() {
 		typeNextNode();
 	}
 
-	typeNextBlock();
-}
+	// -------------------------------
+	// KEYBOARD NAVIGATION FOR CHOICES
+	// -------------------------------
+	function initChoiceNavigation() {
+		const choiceEls = Array.from(document.querySelectorAll(".choice"));
+		if (choiceEls.length === 0) return;
 
+		let activeIndex = 0;
 
-function initChoiceNavigation() {
-	const choiceEls = document.querySelectorAll(".choice");
-	let activeIndex = 0;
+		function updateActive() {
+			choiceEls.forEach((el, i) => {
+				el.classList.toggle("active", i === activeIndex);
+			});
+		}
 
-	function updateActive() {
-		choiceEls.forEach((el, i) => {
-			el.classList.toggle("active", i === activeIndex);
+		updateActive();
+
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "ArrowDown") {
+				activeIndex = (activeIndex + 1) % choiceEls.length;
+				updateActive();
+			}
+			if (e.key === "ArrowUp") {
+				activeIndex = (activeIndex - 1 + choiceEls.length) % choiceEls.length;
+				updateActive();
+			}
+			if (e.key === "Enter") {
+				const target = choiceEls[activeIndex].dataset.target;
+				window.location.href = target;
+			}
 		});
 	}
 
-	updateActive();
-
-	document.addEventListener("keydown", (e) => {
-		if (e.key === "ArrowDown") {
-			activeIndex = (activeIndex + 1) % choiceEls.length;
-			updateActive();
-		}
-		if (e.key === "ArrowUp") {
-			activeIndex = (activeIndex - 1 + choiceEls.length) % choiceEls.length;
-			updateActive();
-		}
-		if (e.key === "Enter") {
-			const target = choiceEls[activeIndex].dataset.target;
-			window.location.href = target;
-		}
-	});
+	typeNextBlock();
 }
