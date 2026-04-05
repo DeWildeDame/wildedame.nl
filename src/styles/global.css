@@ -39,6 +39,10 @@
 	--void-5: #880096;
 	--void-6: #ff4d8d;
 
+	--terminal-link: 242, 143, 63;
+	--hotpink: 255, 77, 141;
+
+
 	/* screensizees		*/
 	--bp-xs: 600;
 }

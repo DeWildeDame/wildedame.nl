@@ -1,4 +1,92 @@
+import * as Tone from "tone";
+//create a synth and connect it to the main output (your speakers)
+const synth = new Tone.Synth().toDestination();
+
+import { Midi } from "@tonejs/midi";
+
+async function playJsonMidi(json) {
+	await Tone.start();
+
+	const reverb = new Tone.Reverb({ decay: 2, wet: 0.3 }).toDestination();
+
+	const synths = json.tracks.map((track) => {
+		if (track.channel === 9) {
+			return new Tone.MembraneSynth().connect(reverb);
+		}
+		return new Tone.PolySynth(Tone.Synth).connect(reverb);
+	});
+
+	const now = Tone.now();
+
+	json.tracks.forEach((track, i) => {
+		const synth = synths[i];
+
+		track.notes.forEach((note) => {
+			synth.triggerAttackRelease(
+				note.name,
+				note.duration,
+				now + note.time,
+				note.velocity
+			);
+		});
+	});
+
+}
+
+
+function enhanceLinks() {
+	const links = document.querySelectorAll("#terminal-output a");
+
+	links.forEach((link) => {
+		let noScrubsCooldown = false;
+
+		// Process all links with a click animation
+		link.addEventListener("click", async (e) => {
+
+			// Click animation
+			link.classList.add("clicked");
+			setTimeout(() => link.classList.remove("clicked"), 200);
+
+		});
+
+		//Dim links for sfx cooldown
+		if (link.classList.contains("sfx")) {
+			link.addEventListener("click", async (e) => {
+				link.classList.add("cooldown");
+			});
+
+		}
+		// Special handling for the "No Scrubs" link
+		if (link.classList.contains("play-no-scrubs")) {
+			link.addEventListener("click", async (e) => {
+				e.preventDefault();
+
+
+
+				// Prevent re-triggering during cooldown
+				if (noScrubsCooldown) return;
+				noScrubsCooldown = true;
+
+				// Play MIDI JSON
+				const json = await fetch("/assets/songs/no-scrubs.json").then(r => r.json());
+				playJsonMidi(json);
+
+
+				// Reset cooldown after 4 seconds
+				setTimeout(() => {
+					link.classList.remove("cooldown");
+					window.open(link.href, "_blank");
+					noScrubsCooldown = false;
+				}, 4000);
+			});
+		}
+	});
+}
+
+
+
 export function startTyping() {
+	console.log("Starting terminal typing effect...");
 	const source = document.getElementById("mdx-source");
 	const output = document.getElementById("terminal-output");
 	const choices = document.getElementById("choices");
@@ -15,6 +103,9 @@ export function startTyping() {
 		}
 	});
 	function typeNextBlock() {
+
+
+
 		if (skipTyping) {
 			// Dump all remaining blocks instantly
 			for (let i = index; i < blocks.length; i++) {
@@ -25,6 +116,7 @@ export function startTyping() {
 			choices.classList.remove("hidden");
 			initChoiceNavigation();
 			scrollToBottom();
+			enhanceLinks();
 			return;
 		}
 		// End of all blocks → reveal choices + enable keyboard nav
@@ -32,6 +124,9 @@ export function startTyping() {
 			choices.classList.remove("hidden");
 			initChoiceNavigation();
 			scrollToBottom();
+
+			// Add sfx handlers
+			enhanceLinks();
 			return;
 		}
 
@@ -214,3 +309,6 @@ function scrollToBottom() {
 		});
 	});
 }
+
+
+

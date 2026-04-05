@@ -6,7 +6,7 @@ import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
-import { startTyping } from "../../../public/assets/scripts/terminal-typing.jsx";
+import { startTyping } from "../../../public/assets/scripts/terminal-typing.js";
 
 const posts = (await getCollection("terminal")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -155,6 +155,33 @@ const posts = (await getCollection("terminal")).sort(
 					transparent 3px
 				);
 			}
+			/* Play No Scrubs link styles */
+			.play-no-scrubs:active {
+				transform: scale(0.94);
+				filter: brightness(1.25);
+				transition:
+					transform 0.08s ease,
+					filter 0.08s ease;
+			}
+			.play-no-scrubs.cooldown {
+				opacity: 0.6;
+				pointer-events: none;
+			}
+			.play-no-scrubs.clicked {
+				animation: pop-release 0.18s ease-out;
+			}
+
+			@keyframes pop-release {
+				0% {
+					transform: scale(0.94);
+				}
+				60% {
+					transform: scale(1.06);
+				}
+				100% {
+					transform: scale(1);
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -180,7 +207,22 @@ const posts = (await getCollection("terminal")).sort(
 
 				<hr />
 				<div id="mdx-source" class="hidden">
-					<!--<Content />-->
+					<h1>Welcome traveler, you have entered the void.</h1>
+					<p>
+						This is a terminal experience built with Astro and MDX
+						and a bit of <a
+							class="play-no-scrubs sfx"
+							href="https://www.youtube.com/watch?v=FrLequ6dUdM"
+							target="_blank">TLC</a
+						>.<br />
+						<br />
+						It is a work in progress, but I hope to add more content and
+						features in the future. For now, you can explore the choices
+						below and see where they lead you, thank you for your time
+						and enjoy the experience,
+						<br />
+						<span class="author">- Wildedame</span>
+					</p>
 				</div>
 
 				<div id="terminal-output"></div>
@@ -213,7 +255,8 @@ const posts = (await getCollection("terminal")).sort(
 		<!--<Footer />-->
 	</body>
 </html>
-<script type="module" client:load>
-	import { startTyping } from "../assets/scripts/terminal-typing.js";
+
+<script type="module">
+	import { startTyping } from "/src/scripts/terminal-typing.js";
 	startTyping();
 </script>

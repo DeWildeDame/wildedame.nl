@@ -1,0 +1,270 @@
+{
+	"header": {
+		"keySignatures": [],
+		"meta": [],
+		"name": "Acoustic Guitar",
+		"ppq": 384,
+		"tempos": [
+			{
+				"bpm": 86.00005160003096,
+				"ticks": 0
+			}
+		],
+		"timeSignatures": [
+			{
+				"ticks": 0,
+				"timeSignature": [
+					4,
+					4
+				],
+				"measures": 0
+			}
+		]
+	},
+	"tracks": [
+		{
+			"channel": 0,
+			"controlChanges": {},
+			"pitchBends": [],
+			"instrument": {
+				"family": "guitar",
+				"number": 24,
+				"name": "acoustic guitar (nylon)"
+			},
+			"name": "Acoustic Guitar",
+			"notes": [
+				{
+					"duration": 1.395348,
+					"durationTicks": 768,
+					"midi": 61,
+					"name": "C#4",
+					"ticks": 0,
+					"time": 0,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 1.13372025,
+					"durationTicks": 624,
+					"midi": 68,
+					"name": "G#4",
+					"ticks": 144,
+					"time": 0.26162775,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.9593017500000001,
+					"durationTicks": 528,
+					"midi": 71,
+					"name": "B4",
+					"ticks": 240,
+					"time": 0.43604625,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.697674,
+					"durationTicks": 384,
+					"midi": 76,
+					"name": "E5",
+					"ticks": 384,
+					"time": 0.697674,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 1.395348,
+					"durationTicks": 768,
+					"midi": 56,
+					"name": "G#3",
+					"ticks": 768,
+					"time": 1.395348,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 1.13372025,
+					"durationTicks": 624,
+					"midi": 68,
+					"name": "G#4",
+					"ticks": 912,
+					"time": 1.65697575,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.9593017500000001,
+					"durationTicks": 528,
+					"midi": 71,
+					"name": "B4",
+					"ticks": 1008,
+					"time": 1.83139425,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.6976740000000001,
+					"durationTicks": 384,
+					"midi": 75,
+					"name": "D#5",
+					"ticks": 1152,
+					"time": 2.093022,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 1.3953479999999998,
+					"durationTicks": 768,
+					"midi": 49,
+					"name": "C#3",
+					"ticks": 1536,
+					"time": 2.790696,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 1.1337202499999997,
+					"durationTicks": 624,
+					"midi": 67,
+					"name": "G4",
+					"ticks": 1680,
+					"time": 3.0523237500000002,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.9593017499999998,
+					"durationTicks": 528,
+					"midi": 71,
+					"name": "B4",
+					"ticks": 1776,
+					"time": 3.22674225,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.6976739999999997,
+					"durationTicks": 384,
+					"midi": 73,
+					"name": "C#5",
+					"ticks": 1920,
+					"time": 3.48837,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 1.3953480000000003,
+					"durationTicks": 768,
+					"midi": 56,
+					"name": "G#3",
+					"ticks": 2304,
+					"time": 4.186044,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 1.1337202499999997,
+					"durationTicks": 624,
+					"midi": 68,
+					"name": "G#4",
+					"ticks": 2448,
+					"time": 4.4476717500000005,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.9593017499999998,
+					"durationTicks": 528,
+					"midi": 71,
+					"name": "B4",
+					"ticks": 2544,
+					"time": 4.62209025,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.6976740000000001,
+					"durationTicks": 384,
+					"midi": 75,
+					"name": "D#5",
+					"ticks": 2688,
+					"time": 4.883718,
+					"velocity": 0.3937007874015748
+				}
+			],
+			"endOfTrackTicks": 3072
+		},
+		{
+			"channel": 9,
+			"controlChanges": {},
+			"pitchBends": [],
+			"instrument": {
+				"family": "drums",
+				"number": 0,
+				"name": "standard kit"
+			},
+			"name": "909 Drum Kit",
+			"notes": [
+				{
+					"duration": 0.1744185,
+					"durationTicks": 96,
+					"midi": 35,
+					"name": "B1",
+					"ticks": 0,
+					"time": 0,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.17441850000000003,
+					"durationTicks": 96,
+					"midi": 38,
+					"name": "D2",
+					"ticks": 384,
+					"time": 0.697674,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.17441850000000003,
+					"durationTicks": 96,
+					"midi": 35,
+					"name": "B1",
+					"ticks": 768,
+					"time": 1.395348,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.17441850000000025,
+					"durationTicks": 96,
+					"midi": 38,
+					"name": "D2",
+					"ticks": 1152,
+					"time": 2.093022,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.1744184999999998,
+					"durationTicks": 96,
+					"midi": 35,
+					"name": "B1",
+					"ticks": 1536,
+					"time": 2.790696,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.1744184999999998,
+					"durationTicks": 96,
+					"midi": 38,
+					"name": "D2",
+					"ticks": 1920,
+					"time": 3.48837,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.1744184999999998,
+					"durationTicks": 96,
+					"midi": 35,
+					"name": "B1",
+					"ticks": 2304,
+					"time": 4.186044,
+					"velocity": 0.3937007874015748
+				},
+				{
+					"duration": 0.1744184999999998,
+					"durationTicks": 96,
+					"midi": 38,
+					"name": "D2",
+					"ticks": 2688,
+					"time": 4.883718,
+					"velocity": 0.3937007874015748
+				}
+			],
+			"endOfTrackTicks": 2784
+		}
+	]
+}
