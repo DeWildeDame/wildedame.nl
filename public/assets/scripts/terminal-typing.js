@@ -6,7 +6,27 @@ export function startTyping() {
 	const blocks = Array.from(source.children);
 	let index = 0;
 
+	// Allow to skip typing by pressing esacepe
+	let skipTyping = false;
+
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			skipTyping = true;
+		}
+	});
 	function typeNextBlock() {
+		if (skipTyping) {
+			// Dump all remaining blocks instantly
+			for (let i = index; i < blocks.length; i++) {
+				const clone = blocks[i].cloneNode(true);
+				clone.style.opacity = 1;
+				output.appendChild(clone);
+			}
+			choices.classList.remove("hidden");
+			initChoiceNavigation();
+			scrollToBottom();
+			return;
+		}
 		// End of all blocks → reveal choices + enable keyboard nav
 		if (index >= blocks.length) {
 			choices.classList.remove("hidden");
@@ -54,6 +74,24 @@ export function startTyping() {
 		let charIndex = 0;
 
 		function typeNextNode() {
+			if (skipTyping) {
+				// Dump all remaining nodes instantly
+				for (let i = nodeIndex; i < nodes.length; i++) {
+					const node = nodes[i];
+					if (node.nodeType === Node.TEXT_NODE) {
+						const span = document.createElement("span");
+						span.textContent = node.textContent;
+						clone.insertBefore(span, cursor);
+					} else {
+						clone.insertBefore(node.cloneNode(true), cursor);
+					}
+				}
+				cursor.remove();
+				index++;
+				typeNextBlock();
+				return;
+			}
+
 			if (nodeIndex >= nodes.length) {
 				cursor.remove();
 				index++;
@@ -80,6 +118,14 @@ export function startTyping() {
 				clone.insertBefore(span, cursor);
 
 				function typeChar() {
+					if (skipTyping) {
+						span.textContent = text; // dump full text
+						charIndex = text.length;
+						scrollToBottom();
+						typeNextNode();
+						return;
+					}
+
 					if (charIndex < text.length) {
 						span.textContent += text[charIndex];
 						scrollToBottom();
@@ -115,6 +161,19 @@ export function startTyping() {
 		}
 
 		updateActive();
+
+		// --- Make choices clickable ---
+		choiceEls.forEach((el, i) => {
+			el.addEventListener("click", () => {
+				activeIndex = i;
+				updateActive();
+
+				const target = el.dataset.target;
+				if (target) {
+					window.location.href = target;
+				}
+			});
+		});
 
 		// Block more keys!
 		const blocked = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", " "];

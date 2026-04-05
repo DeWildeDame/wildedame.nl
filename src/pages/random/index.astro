@@ -8,15 +8,9 @@ import Header from "../../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import { startTyping } from "../../../public/assets/scripts/terminal-typing.jsx";
 
-import Content from "../../content/terminal/01-first-choice.mdx";
-
 const posts = (await getCollection("terminal")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-
-const current = posts[0];
-
-const choices = current?.data.terminalChoices ?? [];
 ---
 
 <!--
@@ -186,19 +180,28 @@ const choices = current?.data.terminalChoices ?? [];
 
 				<hr />
 				<div id="mdx-source" class="hidden">
-					<Content />
+					<!--<Content />-->
 				</div>
 
 				<div id="terminal-output"></div>
 
 				<div id="choices" class="choices hidden">
 					{
-						choices.map((c, i) => (
+						/*posts.map((post) => (
+							<>
+								<a href={`/terminal/${post.id}`}>
+									{post.data.title}
+								</a>
+							</li>
+						))*/
+					}
+					{
+						posts.map((post, i) => (
 							<div
 								class={`choice ${i === 0 ? "active" : ""}`}
-								data-target={c.target}
+								data-target={`/random/${post.id}`}
 							>
-								{c.label}
+								{post.data.title}
 							</div>
 						))
 					}
