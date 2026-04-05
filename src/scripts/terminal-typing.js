@@ -58,10 +58,10 @@ function enhanceLinks() {
 		}
 		// Special handling for the "No Scrubs" link
 		if (link.classList.contains("play-no-scrubs")) {
+			const img = document.querySelector("#terminal-output .no-scrubs");
+			console.log(img);
 			link.addEventListener("click", async (e) => {
 				e.preventDefault();
-
-
 
 				// Prevent re-triggering during cooldown
 				if (noScrubsCooldown) return;
@@ -70,14 +70,15 @@ function enhanceLinks() {
 				// Play MIDI JSON
 				const json = await fetch("/assets/songs/no-scrubs.json").then(r => r.json());
 				playJsonMidi(json);
-
+				//Show item with classname "no-scrubs"
+				img.classList.remove("hidden");
 
 				// Reset cooldown after 4 seconds
 				setTimeout(() => {
 					link.classList.remove("cooldown");
-					window.open(link.href, "_blank");
 					noScrubsCooldown = false;
-				}, 4000);
+					img.classList.add("hidden");
+				}, 5000);
 			});
 		}
 	});
@@ -151,6 +152,7 @@ export function startTyping() {
 			scrollToBottom();
 			index++;
 			setTimeout(typeNextBlock, 200);
+
 			return;
 		}
 

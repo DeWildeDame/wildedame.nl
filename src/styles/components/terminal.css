@@ -18,6 +18,33 @@
 		animation: breathe 2.8s ease-in-out infinite;
 	}
 
+
+	/* Terminal palette for images */
+
+	.terminal img {
+		filter: grayscale(1) contrast(1.2) brightness(1.0);
+	}
+
+	.terminal img::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		/* Replace these with your exact sampled colors */
+		background: linear-gradient(to bottom,
+				var(--void-0),
+				var(--void-1),
+				var(--void-2),
+				var(--void-3),
+				var(--void-4),
+				var(--void-5),
+
+			);
+		mix-blend-mode: screen;
+		/* try 'screen', 'lighten', or 'overlay' */
+		opacity: 1;
+		pointer-events: none;
+	}
+
 	.terminal header {
 		display: flex;
 		align-items: center;

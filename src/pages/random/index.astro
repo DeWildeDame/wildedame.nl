@@ -171,6 +171,18 @@ const posts = (await getCollection("terminal")).sort(
 				animation: pop-release 0.18s ease-out;
 			}
 
+			.no-scrubs {
+				width: 100%;
+				max-width: 200px;
+				margin: 1rem 0;
+				margin-top: 1rem;
+				margin-left: 0px;
+				position: absolute;
+				margin-top: -130px;
+				margin-left: -100px;
+				border: 5px solid #fff;
+			}
+
 			@keyframes pop-release {
 				0% {
 					transform: scale(0.94);
@@ -210,11 +222,14 @@ const posts = (await getCollection("terminal")).sort(
 					<h1>Welcome traveler, you have entered the void.</h1>
 					<p>
 						This is a terminal experience built with Astro and MDX
-						and a bit of <a
-							class="play-no-scrubs sfx"
-							href="https://www.youtube.com/watch?v=FrLequ6dUdM"
-							target="_blank">TLC</a
-						>.<br />
+						and a bit of <a class="play-no-scrubs sfx">TLC</a>.
+						<img
+							src="/assets/img/terminal/no-scrubs.gif"
+							alt="TLC No Scrubs"
+							class="no-scrubs hidden"
+						/>
+
+						<br />
 						<br />
 						It is a work in progress, but I hope to add more content and
 						features in the future. For now, you can explore the choices
