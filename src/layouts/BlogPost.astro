@@ -206,7 +206,12 @@ const choices = terminalChoices || [];
 		<!--<Footer />-->
 	</body>
 </html>
-<script type="module" client:load>
+
+<script src="/assets/scripts/tone.js" is:inline>
+	console.log("Tone.js script loaded");
+</script>
+
+<script type="module" is:inline>
 	import { startTyping } from "/assets/scripts/terminal-typing.js";
-	startTyping();
+	window.addEventListener("load", () => startTyping());
 </script>

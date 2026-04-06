@@ -6,11 +6,9 @@ import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
-import { startTyping } from "../../../public/assets/scripts/terminal-typing.js";
+import Intro, { frontmatter } from "../../content/terminal/00-intro.mdx";
 
-const posts = (await getCollection("terminal")).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const choices = frontmatter.terminalChoices;
 ---
 
 <!--
@@ -199,7 +197,7 @@ const posts = (await getCollection("terminal")).sort(
 	<body>
 		<div class="terminal">
 			<Header />
-			<content>
+			<div>
 				<span class="comment">
 					<br />
 					Delivered by machines, built with humanity. <br />
@@ -219,59 +217,36 @@ const posts = (await getCollection("terminal")).sort(
 
 				<hr />
 				<div id="mdx-source" class="hidden">
-					<h1>Welcome traveler, you have entered the void.</h1>
-					<p>
-						This is a terminal experience built with Astro and MDX
-						and a bit of <a class="play-no-scrubs sfx">TLC</a>.
-						<img
-							src="/assets/img/terminal/no-scrubs.gif"
-							alt="TLC No Scrubs"
-							class="no-scrubs hidden"
-						/>
-
-						<br />
-						<br />
-						It is a work in progress, but I hope to add more content and
-						features in the future. For now, you can explore the choices
-						below and see where they lead you, thank you for your time
-						and enjoy the experience,
-						<br />
-						<span class="author">- Wildedame</span>
-					</p>
+					<Intro />
 				</div>
 
 				<div id="terminal-output"></div>
 
 				<div id="choices" class="choices hidden">
 					{
-						/*posts.map((post) => (
-							<>
-								<a href={`/terminal/${post.id}`}>
-									{post.data.title}
-								</a>
-							</li>
-						))*/
-					}
-					{
-						posts.map((post, i) => (
+						choices.map((c: any, i: any) => (
 							<div
 								class={`choice ${i === 0 ? "active" : ""}`}
-								data-target={`/random/${post.id}`}
+								data-target={c.target}
 							>
-								{post.data.title}
+								{c.label}
 							</div>
 						))
 					}
 				</div>
 				<div class="terminal-type"></div>
 				<span id="typed-text"></span>
-			</content>
+			</div>
 		</div>
 		<!--<Footer />-->
 	</body>
 </html>
 
-<script type="module">
-	import { startTyping } from "/src/scripts/terminal-typing.js";
-	startTyping();
+<script src="/assets/scripts/tone.js" is:inline>
+	console.log("Tone.js script loaded");
+</script>
+
+<script type="module" is:inline>
+	import { startTyping } from "/assets/scripts/terminal-typing.js";
+	window.addEventListener("load", () => startTyping());
 </script>

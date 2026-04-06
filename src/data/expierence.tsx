@@ -25,7 +25,7 @@ user-focused experiences that bridged design and communication.	`
 		logo: "/assets/img/cv/static-motion.png",
 		role: "Web Designer ",
 		company: "@Static Motion",
-		companyUrl: "web.archive.org/web/20140918155229/http://www.staticmotion.nl/",
+		companyUrl: "https://web.archive.org/web/20140918155229/http://www.staticmotion.nl/",
 		period: "Feb 2010 to Feb 2014",
 		description: `
 	  Led branding and digital design projects for small to mid-sized businesses. Created visual identities, websites, and print materials translating each client’s story into cohesive, cross-medium experiences.

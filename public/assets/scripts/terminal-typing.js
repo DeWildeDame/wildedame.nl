@@ -1,8 +1,5 @@
-import * as Tone from "tone";
 //create a synth and connect it to the main output (your speakers)
 const synth = new Tone.Synth().toDestination();
-
-import { Midi } from "@tonejs/midi";
 
 async function playJsonMidi(json) {
 	await Tone.start();
@@ -36,7 +33,7 @@ async function playJsonMidi(json) {
 
 function enhanceLinks() {
 	const links = document.querySelectorAll("#terminal-output a");
-
+	console.log('test')
 	links.forEach((link) => {
 		let noScrubsCooldown = false;
 
@@ -104,9 +101,6 @@ export function startTyping() {
 		}
 	});
 	function typeNextBlock() {
-
-
-
 		if (skipTyping) {
 			// Dump all remaining blocks instantly
 			for (let i = index; i < blocks.length; i++) {
