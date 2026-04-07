@@ -1,6 +1,4 @@
 ---
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
-
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
@@ -8,210 +6,92 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
 
-type Props = CollectionEntry<"terminal">["data"];
+type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, terminalChoices } =
-	Astro.props;
-
-const choices = terminalChoices || [];
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<!--
-
-                                                                                                  
-                                                                                                  
-                                                                                                  
-                                                                                                  
-                                                                                                  
-                                                                                                  
-                                                                                                  
-                                                                                                  
-                                                                                                  
-                                                                                                  
-                                                                                                  
-                                             :.:                                                  
-                                   == *--:=++.----=%++=.                                          
-                              .=..--:+-*-+=#=:*%#=*:*#*++=--=-                                    
-                           .-*.:=:++*==+++===*==-=***+#*==%=-*=:                                  
-                          - +%.#:**-*+#*=-#+-#+=#+* -.-:% :-%=+#.                                 
-                        : -=+#:*-#-:-+.+:+====:+%*++*-*##=.*-@%#::=                               
-                     :=+ ::+*#+:*-:::*:-=**=*-+*+++*.#+#*-%%.+.+#+===                             
-                    -=:.*-*-*-*.%==:=#-+=+-=+*++=--*#-*--%==**:+#+*.+*-                           
-                   +-+#  -:=+.:*=#=:+:---+:++=+++=*==++%+%%%#*=+%@%=-#                            
-                  + -%...:.-#**.+#-*+**###=-=+*=+=+**@%%+=****##@%%%*=+*                          
-                 .@...:-.:%#                      :        --..: %*%%@%#-                         
-                 = ..*+%%%                                        .@@@#@*#                        
-                 ==*-%@%:                                        .. #@@%* +                       
-                 . %%@+                                          .   .%@@*%                       
-                =: %@ :                                          .    :=@@%                       
-                **.%@.                                          ..     ##*%                       
-                %###@ .      .                                  ...   .:%%@                       
-                %@#@@.=.                                         ....:*#@@@                       
-                @#%%@##-    .                                   .:.:.-##@@@                       
-                 #*%%%*+.                                        .:::+@#@@                        
-                .-*@%%-*.    .-....  ..:..      .    .::-==---++:: ::@#%@@: .                     
-              .= . +%@+*    .     .  .. .:--:.   .:-===-:::..  .--+..@%@%- %                      
-              :+-+.. =*:      .% -###*-:=::-:.   .-+==%==@*#=:%+:==::%@ . ##                      
-              --=:.-.:#:    .:%=. #@@# .#=.      :.::*: #@@+.-%*+==-:@@:*##:=                     
-              :*=...-:%-    .::. . %#                 .  #%...-+*-..:@%---#+                      
-               -::-=-. =        .::. :-                =:  .:::....:-#+#*=:                       
-                 .-:   - .   .                   .                .%-+-==-                        
-                 : .   .   *     . .=.                  .    .   .::=#:=..                        
-                  -+  ....: ... .   --:          .         . . ::-=== .=.                ...    ..
-          =++          ..... .:.     =:. +===+=    .-.        ..::--+...    :-           ..... :..
-         *+++      -   :....=+**     .. .-=+=-      ..          :--=* =      =           .... =...
-         =+=  +*+#+  ...:....=++=..::....-.......           .*+.:-==:=  .    .       ::=  -:.....=
-          +   +++#**++*+.....:-:-:==--.......... . :==#.  .-==##:=++  .:%=    -::..++====.*-==:=+-
-   -***###-.::#++*#=***==-:.::.:+#*+++-=-:.--:%+.#.........--*#=..:......#**#. =*%%%#**++:%@#=.:++
-:.+#*==:.=+*=-:-=.+=*#%-=+==.::..##+==--::.:..:..........:%%#:%#+==+-..#-:*:.===++=:==*+-++-*:..:-
-..=+++-=+=:-:..-*+-+*=-:=::----..+:.=-..==-=#---.:.....=#+..#..:%@+-+=#%*--=%@**+*+=...:::.*%#*::.
-...-%+=.......=%..:==-:+*#-.:--::%::-.:#%@%**-===#-=+:::*.....::**:*%%#+--=-.#=-==+.*-=---.:*+....
-..:##=:...-:*#*=-=+-:-##+#*#%#*--+**%#=-++*+---:++=........-::.+@*#@%+.:+-=+#...-::===--=+++*.=..-
----*=...=+=*=.-=-=+=++#@%*-#+-:.:-**=+*==-*=....-#+=-::...:+::.:::=*:...-+%+-..=----=*+#%%**#*##*+
-*:.++.-#**==+*-:::=#%%%%@*=*@#*=-*%%+#=#++.*=:..:+#+--.....+..+:..::..--*%%%%%%%*%#=:.-++%@+*#@%+*
-*-+*=+%#*#%#=+%+*#%%@@@@%#+*%+===*###@#**+*@+----=%#%@@*....:#-....*#%#%%@##*##*#*+*+**+%%%@%@#==%
-***+::::.:+%@%###%**#%@@@%%#=-----=++#%*%%@@++==:.....+*-:...=#-..:+=..+#*%%%**@%@@@#%%@@###++==*@
-***=-:-*@#==+*#%**###%%*+=-===+==+*=+*%%%#@@=:*=.......#.....#@#*+:...==+##%###*==%@%++*@%%@@*#@@%
-@#%@@@%+*+---=+=+###+::-=-::=*##%#**%%@@%@@%%#%%%=:..::=.....#%%%#...*===*%@#*==*#%%+-=+=#%%%%*%*-
-@@#%%@@%@*--=**+**#%=-+#+---+*%@@##%%#++##*+====+*=--...:=..#####-.*%#**%@*==---+*#%#%#**##*=:*+..
-@%%##@%%%#=--:=##%@@*#*--:--++#@*++**%@@%@@%%%%**#*=:....:=*==++*%%@@@@%%%*=-=+=-..-+#%*+*---+#=+=
-#**@@@@@%##****+*%@@@#==+****+%#==--=*%@@@@%%:...=*%=::-*@=@%+----=#@*+##%@#**+**+=****###=*==-:-=
-%###**#%###%@@@@@%@@@@@@@@%%@%%#+==*%%%@%%%%%:.....+*=-==++=---::--+%##++**#++=**+**@#=*%*==+*=:=*
-%%#####**+#@@%%#%#+#%*#%%@#*+***#%##++##*=#@@=.....-#==:.....*##*#%@@@#**#*+---+*%##@#==#*=+#%#::+
-%%@@@@@@@*%@%%#+==++=-=%@##%*=*%@@@%%@%=-#@@%@+......:--...=*@@@%@@@@%%##++==+##%%@@%##%**#**#%#%@
-%@%%%#*%#%%**=:=*##+--*%###%*++*###%#%%%@@%###%@%%--#%*+===*@@@@@%%@@@%*%@@@@@@@@@@@@@@%%%%%%@@@@@
-+##**##**+=+++=**#*******@@%**+++##*%@@#*=-=+++*#@*##=--=*#%%#*+***#@###==*#@@#%%#**##**==++*#@**+
-@@@*=+#%@#*==:+#*:....:==##+----:=+@@#+=--=+++**#%***+*%%%%@%%#***+=****+=-==-+**+++=+*++*++*%*--=
-
-
--->
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={title} description={description} />
 		<style>
-			/*! 
-			Generated by Font Squirrel (https://www.fontsquirrel.com) on April 3, 2026 
-			Thanks Font Squirrel I have been using your services for my projects!
-			
-			Shout out to Andreas (https://larsenwork.com/) as well,
-			Monoid has to be one of my favorite fonts out here!
-			*/
-			@font-face {
-				font-family: "monoidbold";
-				src:
-					url("/assets/fonts/monoid/monoid-bold-webfont.woff2")
-						format("woff2"),
-					url("/assets/fonts/monoid/monoid-bold-webfont.woff")
-						format("woff");
-				font-weight: normal;
-				font-style: normal;
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+				color: #fff;
 			}
-
-			@font-face {
-				font-family: "monoiditalic";
-				src:
-					url("/assets/fonts/monoid/monoid-italic-webfont.woff2")
-						format("woff2"),
-					url("/assets/fonts/monoid/monoid-italic-webfont.woff")
-						format("woff");
-				font-weight: normal;
-				font-style: normal;
+			.hero-image {
+				width: 100%;
 			}
-
-			@font-face {
-				font-family: "monoidregular";
-				src:
-					url("/assets/fonts/monoid/monoid-regular-webfont.woff2")
-						format("woff2"),
-					url("/assets/fonts/monoid/monoid-regular-webfont.woff")
-						format("woff");
-				font-weight: normal;
-				font-style: normal;
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
 			}
-
-			@font-face {
-				font-family: "monoidretina";
-				src:
-					url("/assets/fonts/monoid/monoid-retina-webfont.woff2")
-						format("woff2"),
-					url("/assets/fonts/monoid/monoid-retina-webfont.woff")
-						format("woff");
-				font-weight: normal;
-				font-style: normal;
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
 			}
-
-			body {
-				background: var(--void-0);
-				color: var(--void-6);
-				font-family: "monoidregular", monospace;
-				padding: 0;
-				border-radius: 8px;
-				line-height: 1.6;
-				font-size: 0.95rem;
-
-				/* Optional subtle scanlines */
-				background-image: repeating-linear-gradient(
-					to bottom,
-					rgba(255, 255, 255, 0.03) 0,
-					rgba(255, 255, 255, 0.03) 1px,
-					transparent 1px,
-					transparent 3px
-				);
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+			}
+			.last-updated-on {
+				font-style: italic;
 			}
 		</style>
 	</head>
+
 	<body>
-		<div class="terminal">
-			<Header />
-			<content>
-				<span class="comment">
-					<br />
-					Delivered by machines, built with humanity. <br />
-					The font used is <a
-						href="https://larsenwork.com/monoid/"
-						target="_blank">Monoid</a
-					>.<br />
-					<br />
-					Font packaged by <a
-						href="https://larsenwork.com/monoid/"
-						target="_blank"
-					>
-						Font Squirrel.</a
-					>
-					My favorite font generator since 2009 ❤️.
-				</span>
-
-				<hr />
-				<div id="mdx-source" class="hidden">
-					<slot />
-				</div>
-
-				<div id="terminal-output"></div>
-				<div id="choices" class="choices hidden">
+		<Header />
+		<main>
+			<article>
+				<div class="hero-image">
 					{
-						choices.map((c, i) => (
-							<div
-								class={`choice ${i === 0 ? "active" : ""}`}
-								data-target={c.target}
-							>
-								{c.label}
-							</div>
-						))
+						heroImage && (
+							<Image
+								width={1020}
+								height={510}
+								src={heroImage}
+								alt=""
+							/>
+						)
 					}
 				</div>
-				<div class="terminal-type"></div>
-				<span id="typed-text"></span>
-			</content>
-		</div>
-		<!--<Footer />-->
+				<div class="prose">
+					<div class="title">
+						<div class="date">
+							<FormattedDate date={pubDate} />
+							{
+								updatedDate && (
+									<div class="last-updated-on">
+										Last updated on{" "}
+										<FormattedDate date={updatedDate} />
+									</div>
+								)
+							}
+						</div>
+						<h1>{title}</h1>
+						<hr />
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer />
 	</body>
 </html>
-
-<script src="/assets/scripts/tone.js" is:inline>
-	console.log("Tone.js script loaded");
-</script>
-
-<script type="module" is:inline>
-	import { startTyping } from "/assets/scripts/terminal-typing.js";
-	window.addEventListener("load", () => startTyping());
-</script>
