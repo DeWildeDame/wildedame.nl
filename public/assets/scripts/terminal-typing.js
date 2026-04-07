@@ -1,5 +1,5 @@
 window.__commandMode = false;
-
+window.__curentTheme = null;
 const THEMES = [
 	{
 		name: "default",
@@ -58,7 +58,13 @@ function applyRandomTheme() {
 }
 
 function applyTheme(name) {
-	const theme = THEMES[name];
+	// create theme variable;
+	let theme;
+
+	if (name == null)
+		theme = THEMES[Math.floor(Math.random() * THEMES.length)];
+	else
+		theme = THEMES[name];
 	if (!theme) return false;
 
 	const root = document.documentElement;
@@ -75,6 +81,9 @@ function applyTheme(name) {
 
 	return true;
 }
+
+applyTheme(null); // apply random theme on load
+
 
 //create a synth and connect it to the main output (your speakers)
 const synth = new Tone.Synth().toDestination();
@@ -111,7 +120,7 @@ async function playJsonMidi(json) {
 
 function enhanceLinks() {
 	const links = document.querySelectorAll("#terminal-output a");
-	console.log('test')
+
 	links.forEach((link) => {
 		let noScrubsCooldown = false;
 
@@ -134,7 +143,7 @@ function enhanceLinks() {
 		// Special handling for the "No Scrubs" link
 		if (link.classList.contains("play-no-scrubs")) {
 			const img = document.querySelector("#terminal-output .no-scrubs");
-			console.log(img);
+
 			link.addEventListener("click", async (e) => {
 				e.preventDefault();
 
@@ -163,8 +172,8 @@ function enhanceLinks() {
 
 export function startTyping() {
 
-	applyRandomTheme();
-	console.log("Starting terminal typing effect...");
+
+
 
 	// Open command prompt
 	initCommandInput();
@@ -372,8 +381,7 @@ export function startTyping() {
 				updateActive();
 			}
 			if (e.key === "Enter") {
-				console.log(window.__commandMode);
-				console.log(document.querySelector(".command-line"))
+
 				const target = choiceEls[activeIndex].dataset.target;
 				window.location.href = target;
 			}
@@ -399,7 +407,7 @@ function scrollToBottom() {
 // Process command input (triggered by ":" key) for fun hidden features
 function initCommandInput() {
 	document.addEventListener("keydown", (e) => {
-		console.log("Key pressed:", e.key);
+
 		if (window.__commandMode) return; // already open
 
 		if (e.key === ":") {
@@ -411,28 +419,35 @@ function initCommandInput() {
 
 
 function openCommandPrompt() {
-	const prompt = document.createElement("div");
-	prompt.className = "command-line";
-	prompt.innerHTML = `
-        <span class="prompt">:</span>
-        <input class="cmd-input" autofocus />
-    `;
-	document.body.appendChild(prompt);
 
-	const input = prompt.querySelector(".cmd-input");
+	{
+		const output = document.getElementById("terminal-output");
 
-	input.focus();
+		const prompt = document.createElement("div");
+		prompt.className = "command-line";
+		prompt.innerHTML = `
+			<span class="prompt">$</span>
+			<input class="cmd-input" autofocus />
+		`;
+		// Insert AFTER terminal-output
+		output.insertAdjacentElement("afterend", prompt);
 
-	// Disable choice navigation while typing a command
-	window.__commandMode = true;
 
-	input.addEventListener("keydown", (e) => {
-		if (e.key === "Enter") {
-			const cmd = input.value.trim();
-			handleCommand(cmd);
-			prompt.remove();
-		}
-	});
+		const input = prompt.querySelector(".cmd-input");
+
+		input.focus();
+
+		// Disable choice navigation while typing a command
+		window.__commandMode = true;
+
+		input.addEventListener("keydown", (e) => {
+			if (e.key === "Enter") {
+				const cmd = input.value.trim();
+				handleCommand(cmd);
+				prompt.remove();
+			}
+		});
+	}
 }
 
 function handleCommand(cmd) {
@@ -464,7 +479,8 @@ function handleCommand(cmd) {
 	const p = document.createElement("p");
 	p.className = "command-output";
 	p.textContent = `Unknown command: ${cmd}`;
-
+	output.appendChild(p);
+	scrollToBottom();
 
 	setTimeout(() => {
 		window.__commandMode = false; // re-enable choices

@@ -267,12 +267,7 @@
 
 	/* Command prompt */
 	.command-line {
-		position: fixed;
-		bottom: 20px;
-		left: 20px;
-		background: rgba(0, 0, 0, 0.8);
 		padding: 6px 10px;
-		border: 1px solid var(--void-4);
 		border-radius: 4px;
 		font-family: monoidregular, monospace;
 		color: var(--void-6);
@@ -290,10 +285,15 @@
 		color: var(--void-6);
 		font-family: inherit;
 		font-size: inherit;
-		width: 200px;
+
 	}
 
 	.command-output {
 		color: var(--void-6);
 		margin-top: 4px;
+	}
+
+	.prompt {
+		color: var(--hightlight);
+		margin-right: 4px;
 	}
