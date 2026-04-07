@@ -61,10 +61,15 @@ function applyTheme(name) {
 	// create theme variable;
 	let theme;
 
-	if (name == null)
+	console.log(typeof name);
+
+	// Gotta respect how horrible javascript is with types, I kind of love it :)
+	if (name == null || name === "random")
 		theme = THEMES[Math.floor(Math.random() * THEMES.length)];
+	else if (typeof parseInt(name) === "number")
+		theme = THEMES[parseInt(name)];
 	else
-		theme = THEMES[name];
+		theme = THEMES.find(t => t.name === name);
 	if (!theme) return false;
 
 	const root = document.documentElement;
@@ -79,7 +84,7 @@ function applyTheme(name) {
 	root.style.setProperty("--terminal-link", theme.terminalLink);
 	root.style.setProperty("--hightlight", theme.hightlight);
 
-	return true;
+	return theme.name;
 }
 
 applyTheme(null); // apply random theme on load
@@ -428,6 +433,7 @@ function openCommandPrompt() {
 		prompt.innerHTML = `
 			<span class="prompt">$</span>
 			<input class="cmd-input" autofocus />
+			<span class="cmd-cursor">█</span>
 		`;
 		// Insert AFTER terminal-output
 		output.insertAdjacentElement("afterend", prompt);
@@ -435,10 +441,21 @@ function openCommandPrompt() {
 
 		const input = prompt.querySelector(".cmd-input");
 
+		input.style.width = "10px"; // start with minimal width
+
 		input.focus();
 
 		// Disable choice navigation while typing a command
 		window.__commandMode = true;
+
+		input.addEventListener("input", () => {
+			input.style.width = (input.value.length + 1) * 10 + "px"; // simple width adjustment based on character count
+		});
+		input.addEventListener("keydown", () => {
+			input.style.width = (input.value.length + 1) * 10 + "px"; // simple width adjustment based on character count
+		});
+
+
 
 		input.addEventListener("keydown", (e) => {
 			if (e.key === "Enter") {
@@ -450,8 +467,32 @@ function openCommandPrompt() {
 	}
 }
 
+
+
 function handleCommand(cmd) {
 	const output = document.getElementById("terminal-output");
+
+	if (cmd === "help") {
+		const pre = document.createElement("pre");
+		pre.className = "command-output";
+		pre.textContent = `
+AVAILABLE COMMANDS
+───────────────────────────────────────────────
+help
+    Show this list.
+
+theme <name | number>
+    Change the terminal theme.
+
+theme random
+    Pick a random theme.`;
+		output.appendChild(pre);
+		scrollToBottom();
+		setTimeout(() => {
+			window.__commandMode = false; // re-enable choices
+		}, 200);
+		return;
+	}
 
 	if (cmd.startsWith("theme ")) {
 		const name = cmd.split(" ")[1];
@@ -461,7 +502,7 @@ function handleCommand(cmd) {
 		p.className = "command-output";
 
 		if (ok) {
-			p.textContent = `Theme switched to "${name}".`;
+			p.textContent = `Theme switched to "${ok}".`;
 		} else {
 			p.textContent = `Unknown theme "${name}". Available: ${Object.keys(THEMES).join(", ")}`;
 		}

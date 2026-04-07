@@ -19,6 +19,13 @@
 		cursor: pointer;
 	}
 
+
+	.terminal code {
+		background: var(--void-0);
+		color: var(--void-1);
+		padding: 12px 1em;
+	}
+
 	.terminal header a {
 		color: rgb(var(--terminal-link));
 		font-weight: 600;
@@ -270,7 +277,8 @@
 		padding: 6px 10px;
 		border-radius: 4px;
 		font-family: monoidregular, monospace;
-		color: var(--void-6);
+		color: var(--void-1);
+		caret-color: transparent;
 	}
 
 	.command-line .prompt {
@@ -296,4 +304,19 @@
 	.prompt {
 		color: var(--hightlight);
 		margin-right: 4px;
+	}
+
+
+	.cmd-cursor {
+		display: inline-block;
+		margin-left: -15px;
+		color: var(--hightlight);
+		animation: blink 1s steps(1) infinite;
+	}
+
+
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
 	}
