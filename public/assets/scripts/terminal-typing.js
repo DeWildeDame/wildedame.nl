@@ -515,6 +515,15 @@ theme random
 
 		return;
 	}
+	if (cmd === "Global Thermonuclear War") {
+		const pre = document.createElement("pre");
+		pre.className = "command-output";
+		pre.innerHTML = "How about a nice game of chess?";
+		output.appendChild(pre);
+		scrollToBottom();
+
+		return;
+	}
 
 	// fallback
 	const p = document.createElement("p");

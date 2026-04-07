@@ -7,6 +7,10 @@
 		/* Now that the filter is reset we can do funky terminal oreientated fun stuff again. */
 	}
 
+	.terminal p {
+
+		cursor: default;
+	}
 
 	/* Globals */
 	.terminal a {
