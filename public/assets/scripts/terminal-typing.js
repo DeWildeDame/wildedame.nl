@@ -57,19 +57,28 @@ function applyRandomTheme() {
 	root.style.setProperty("--hightlight", theme.hightlight);
 }
 
+function isPureNumber(str) {
+	// I got 99 problems but a regex ain't one
+	return /^[0-9]+$/.test(str);
+}
+
 function applyTheme(name) {
 	// create theme variable;
 	let theme;
 
-	console.log(typeof name);
+
 
 	// Gotta respect how horrible javascript is with types, I kind of love it :)
-	if (name == null || name === "random")
+	if (name === null || name === "random") {
 		theme = THEMES[Math.floor(Math.random() * THEMES.length)];
-	else if (typeof parseInt(name) === "number")
-		theme = THEMES[parseInt(name)];
-	else
-		theme = THEMES.find(t => t.name === name);
+	}
+	else if (isPureNumber(name)) {
+		theme = THEMES[Number(name)];
+	}
+	else {
+		theme = THEMES.find(t => t.name.toLowerCase() === name.toLowerCase());
+	}
+
 	if (!theme) return false;
 
 	const root = document.documentElement;
@@ -176,10 +185,6 @@ function enhanceLinks() {
 
 
 export function startTyping() {
-
-
-
-
 	// Open command prompt
 	initCommandInput();
 	const source = document.getElementById("mdx-source");
