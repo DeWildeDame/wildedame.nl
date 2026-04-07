@@ -16,8 +16,17 @@
 		position: relative;
 		transition: color 0.3s ease, text-shadow 0.3s ease;
 		animation: breathe 2.8s ease-in-out infinite;
+		cursor: pointer;
 	}
 
+	.terminal header a {
+		color: rgb(var(--terminal-link));
+		font-weight: 600;
+		text-decoration: underline;
+		position: relative;
+		transition: none;
+		animation: none;
+	}
 
 	/* Terminal palette for images */
 
@@ -207,4 +216,84 @@
 			opacity: 0;
 			transform: translate(var(--dx), var(--dy)) scale(0.2);
 		}
+	}
+
+	/* Play No Scrubs link styles */
+	.play-no-scrubs:active {
+		transform: scale(0.94);
+		filter: brightness(1.25);
+		transition:
+			transform 0.08s ease,
+			filter 0.08s ease;
+	}
+
+	.play-no-scrubs.cooldown {
+		opacity: 0.6;
+		pointer-events: none;
+	}
+
+	.play-no-scrubs.clicked {
+		animation: pop-release 0.18s ease-out;
+	}
+
+	.no-scrubs {
+		position: absolute;
+		width: 100%;
+		max-width: 200px;
+		position: absolute;
+		border: 5px solid #fff;
+		transition: transform 0.3s ease, opacity 0.3s ease;
+		margin-top: -11em;
+		margin-left: -200px;
+	}
+
+
+
+	@keyframes pop-release {
+		0% {
+			transform: scale(0.94);
+		}
+
+		60% {
+			transform: scale(1.06);
+		}
+
+		100% {
+			transform: scale(1);
+		}
+	}
+
+
+
+	/* Command prompt */
+	.command-line {
+		position: fixed;
+		bottom: 20px;
+		left: 20px;
+		background: rgba(0, 0, 0, 0.8);
+		padding: 6px 10px;
+		border: 1px solid var(--void-4);
+		border-radius: 4px;
+		font-family: monoidregular, monospace;
+		color: var(--void-6);
+	}
+
+	.command-line .prompt {
+		color: var(--hightlight);
+		margin-right: 4px;
+	}
+
+	.cmd-input {
+		background: transparent;
+		border: none;
+		outline: none;
+		color: var(--void-6);
+		font-family: inherit;
+		font-size: inherit;
+		width: 200px;
+	}
+
+	.command-output {
+		color: var(--void-6);
+		margin-top: 4px;
 	}

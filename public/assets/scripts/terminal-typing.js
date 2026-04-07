@@ -1,3 +1,81 @@
+window.__commandMode = false;
+
+const THEMES = [
+	{
+		name: "default",
+		void0: "#0d0014",
+		void1: "#9a2f6a",
+		void2: "#3a0044",
+		void3: "#52005e",
+		void4: "#6b0079",
+		void5: "#880096",
+		void6: "#ff4d8d",
+		terminalLink: "242, 143, 63",
+		hightlight: "255, 77, 141"
+	},
+
+	{
+		name: "sunset",
+		void0: "#140400",
+		void1: "#ff6b3d",
+		void2: "#d94a73",
+		void3: "#a83279",
+		void4: "#6a1b9a",
+		void5: "#4a148c",
+		void6: "#ff9e80",
+		terminalLink: "255, 120, 80",
+		hightlight: "255, 90, 150"
+	},
+
+	{
+		name: "ocean",
+		void0: "#001014",
+		void1: "#006a9a",
+		void2: "#003a44",
+		void3: "#005e6b",
+		void4: "#00797a",
+		void5: "#009688",
+		void6: "#4dd0e1",
+		terminalLink: "63, 180, 242",
+		hightlight: "77, 255, 200"
+	}
+]
+// Shuffle themes on each load for variety and to show off the palette system
+function applyRandomTheme() {
+	const theme = THEMES[Math.floor(Math.random() * THEMES.length)];
+	const root = document.documentElement;
+
+	root.style.setProperty("--void-0", theme.void0);
+	root.style.setProperty("--void-1", theme.void1);
+	root.style.setProperty("--void-2", theme.void2);
+	root.style.setProperty("--void-3", theme.void3);
+	root.style.setProperty("--void-4", theme.void4);
+	root.style.setProperty("--void-5", theme.void5);
+	root.style.setProperty("--void-6", theme.void6);
+
+	root.style.setProperty("--terminal-link", theme.terminalLink);
+	root.style.setProperty("--hightlight", theme.hightlight);
+}
+
+function applyTheme(name) {
+	const theme = THEMES[name];
+	if (!theme) return false;
+
+	const root = document.documentElement;
+	root.style.setProperty("--void-0", theme.void0);
+	root.style.setProperty("--void-1", theme.void1);
+	root.style.setProperty("--void-2", theme.void2);
+	root.style.setProperty("--void-3", theme.void3);
+	root.style.setProperty("--void-4", theme.void4);
+	root.style.setProperty("--void-5", theme.void5);
+	root.style.setProperty("--void-6", theme.void6);
+
+	root.style.setProperty("--terminal-link", theme.terminalLink);
+	root.style.setProperty("--hightlight", theme.hightlight);
+
+	return true;
+}
+
 //create a synth and connect it to the main output (your speakers)
 const synth = new Tone.Synth().toDestination();
 
@@ -84,7 +162,12 @@ function enhanceLinks() {
 
 
 export function startTyping() {
+
+	applyRandomTheme();
 	console.log("Starting terminal typing effect...");
+
+	// Open command prompt
+	initCommandInput();
 	const source = document.getElementById("mdx-source");
 	const output = document.getElementById("terminal-output");
 	const choices = document.getElementById("choices");
@@ -96,6 +179,7 @@ export function startTyping() {
 	let skipTyping = false;
 
 	document.addEventListener("keydown", (e) => {
+		if (document.querySelector(".command-line")) return;
 		if (e.key === "Escape") {
 			skipTyping = true;
 		}
@@ -109,6 +193,7 @@ export function startTyping() {
 				output.appendChild(clone);
 			}
 			choices.classList.remove("hidden");
+
 			initChoiceNavigation();
 			scrollToBottom();
 			enhanceLinks();
@@ -270,7 +355,9 @@ export function startTyping() {
 		const blocked = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", " "];
 
 		document.addEventListener("keydown", (e) => {
-
+			if (window.__commandMode) {
+				return; // don't interfere with command input
+			}
 
 			if (blocked.includes(e.key)) {
 				e.preventDefault();
@@ -285,6 +372,8 @@ export function startTyping() {
 				updateActive();
 			}
 			if (e.key === "Enter") {
+				console.log(window.__commandMode);
+				console.log(document.querySelector(".command-line"))
 				const target = choiceEls[activeIndex].dataset.target;
 				window.location.href = target;
 			}
@@ -307,4 +396,77 @@ function scrollToBottom() {
 }
 
 
+// Process command input (triggered by ":" key) for fun hidden features
+function initCommandInput() {
+	document.addEventListener("keydown", (e) => {
+		console.log("Key pressed:", e.key);
+		if (window.__commandMode) return; // already open
 
+		if (e.key === ":") {
+			e.preventDefault();
+			openCommandPrompt();
+		}
+	});
+}
+
+
+function openCommandPrompt() {
+	const prompt = document.createElement("div");
+	prompt.className = "command-line";
+	prompt.innerHTML = `
+        <span class="prompt">:</span>
+        <input class="cmd-input" autofocus />
+    `;
+	document.body.appendChild(prompt);
+
+	const input = prompt.querySelector(".cmd-input");
+
+	input.focus();
+
+	// Disable choice navigation while typing a command
+	window.__commandMode = true;
+
+	input.addEventListener("keydown", (e) => {
+		if (e.key === "Enter") {
+			const cmd = input.value.trim();
+			handleCommand(cmd);
+			prompt.remove();
+		}
+	});
+}
+
+function handleCommand(cmd) {
+	const output = document.getElementById("terminal-output");
+
+	if (cmd.startsWith("theme ")) {
+		const name = cmd.split(" ")[1];
+		const ok = applyTheme(name);
+
+		const p = document.createElement("p");
+		p.className = "command-output";
+
+		if (ok) {
+			p.textContent = `Theme switched to "${name}".`;
+		} else {
+			p.textContent = `Unknown theme "${name}". Available: ${Object.keys(THEMES).join(", ")}`;
+		}
+
+		output.appendChild(p);
+		scrollToBottom();
+		setTimeout(() => {
+			window.__commandMode = false; // re-enable choices
+		}, 200);
+
+		return;
+	}
+
+	// fallback
+	const p = document.createElement("p");
+	p.className = "command-output";
+	p.textContent = `Unknown command: ${cmd}`;
+
+
+	setTimeout(() => {
+		window.__commandMode = false; // re-enable choices
+	}, 200);
+}

@@ -29,7 +29,7 @@
 
 
 
-	/* Random page vars */
+	/* Random page vars they will all start from deep  */
 	--void-0: #0d0014;
 
 	--void-1: #9a2f6a;
@@ -40,7 +40,7 @@
 	--void-6: #ff4d8d;
 
 	--terminal-link: 242, 143, 63;
-	--hotpink: 255, 77, 141;
+	--hightlight: 255, 77, 141;
 
 
 	/* screensizees		*/

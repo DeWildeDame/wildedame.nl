@@ -153,51 +153,12 @@ const choices = frontmatter.terminalChoices;
 					transparent 3px
 				);
 			}
-			/* Play No Scrubs link styles */
-			.play-no-scrubs:active {
-				transform: scale(0.94);
-				filter: brightness(1.25);
-				transition:
-					transform 0.08s ease,
-					filter 0.08s ease;
-			}
-			.play-no-scrubs.cooldown {
-				opacity: 0.6;
-				pointer-events: none;
-			}
-			.play-no-scrubs.clicked {
-				animation: pop-release 0.18s ease-out;
-			}
-
-			.no-scrubs {
-				width: 100%;
-				max-width: 200px;
-				margin: 1rem 0;
-				margin-top: 1rem;
-				margin-left: 0px;
-				position: absolute;
-				margin-top: -130px;
-				margin-left: -100px;
-				border: 5px solid #fff;
-			}
-
-			@keyframes pop-release {
-				0% {
-					transform: scale(0.94);
-				}
-				60% {
-					transform: scale(1.06);
-				}
-				100% {
-					transform: scale(1);
-				}
-			}
 		</style>
 	</head>
 	<body>
 		<div class="terminal">
 			<Header />
-			<div>
+			<content>
 				<span class="comment">
 					<br />
 					Delivered by machines, built with humanity. <br />
@@ -236,7 +197,7 @@ const choices = frontmatter.terminalChoices;
 				</div>
 				<div class="terminal-type"></div>
 				<span id="typed-text"></span>
-			</div>
+			</content>
 		</div>
 		<!--<Footer />-->
 	</body>
