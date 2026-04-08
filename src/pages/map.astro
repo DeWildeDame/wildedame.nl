@@ -78,94 +78,101 @@ const placesData = await getCollection("places");
 		</div>
 
 		<script type="module">
-			import * as L from "https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js";
+			import * as L from "/assets/scripts/leaflet.js";
 
-			// Read JSON blob from DOM (safe and avoids server/client scope issues)
+			// Wait for the dom to be ready.....
+			document.addEventListener("DOMContentLoaded", () => {
+				// Read JSON blob from DOM (safe and avoids server/client scope issues)
 
-			const places = readPlacesFromDOM();
-			function readPlacesFromDOM({
-				attrSelector = "#map",
-				attrName = "data-places",
-			} = {}) {
-				// Try data attribute first
-				const el = document.querySelector(attrSelector);
-				if (el) {
-					const raw = el.getAttribute(attrName);
-					if (raw) {
-						try {
-							return JSON.parse(raw);
-						} catch (err) {
-							// If attribute was HTML-escaped or encoded, try decodeURIComponent
+				const places = readPlacesFromDOM();
+
+				function readPlacesFromDOM({
+					attrSelector = "#map",
+					attrName = "data-places",
+				} = {}) {
+					// Try data attribute first
+					const el = document.querySelector(attrSelector);
+					if (el) {
+						const raw = el.getAttribute(attrName);
+						if (raw) {
 							try {
-								return JSON.parse(decodeURIComponent(raw));
-							} catch (err2) {
-								console.error(
-									"Failed to parse JSON from data attribute:",
-									err2,
-								);
+								return JSON.parse(raw);
+							} catch (err) {
+								// If attribute was HTML-escaped or encoded, try decodeURIComponent
+								try {
+									return JSON.parse(decodeURIComponent(raw));
+								} catch (err2) {
+									console.error(
+										"Failed to parse JSON from data attribute:",
+										err2,
+									);
+								}
 							}
 						}
 					}
 				}
-			}
-			console.log("Loaded places data:", places);
-			// Parse "lat, lon" notation from YAML array
-			function parseLocation(rawLoc) {
-				if (!rawLoc) return null;
-				const first = Array.isArray(rawLoc) ? rawLoc[0] : rawLoc;
-				const parts = String(first)
-					.split(",")
-					.map((s) => s.trim())
-					.map(Number);
-				if (parts.length < 2 || parts.some(isNaN)) return null;
-				return { lat: parts[0], lon: parts[1] };
-			}
+				console.log("Loaded places data:", places);
+				// Parse "lat, lon" notation from YAML array
+				function parseLocation(rawLoc) {
+					if (!rawLoc) return null;
+					const first = Array.isArray(rawLoc) ? rawLoc[0] : rawLoc;
+					const parts = String(first)
+						.split(",")
+						.map((s) => s.trim())
+						.map(Number);
+					if (parts.length < 2 || parts.some(isNaN)) return null;
+					return { lat: parts[0], lon: parts[1] };
+				}
 
-			// Resolve image URL helper: if image is relative (./photo.jpg), try to use it as-is.
-			// If you need build-time resolution, see note below.
-			function resolveImage(entry) {
-				// entry.data.image may be a string or object depending on your content pipeline
-				if (!entry?.data?.image) return "/favicon-32x32.png";
-				return entry.data.image;
-			}
+				// Resolve image URL helper: if image is relative (./photo.jpg), try to use it as-is.
+				// If you need build-time resolution, see note below.
+				function resolveImage(entry) {
+					// entry.data.image may be a string or object depending on your content pipeline
+					if (!entry?.data?.image) return "/favicon-32x32.png";
+					return entry.data.image;
+				}
 
-			// Initialize map
-			const map = L.map("map").setView([52.08, 4.3], 6);
-			L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-				maxZoom: 19,
-			}).addTo(map);
+				// Initialize map
+				const map = L.map("map").setView([52.08, 4.3], 6);
+				L.tileLayer(
+					"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+					{
+						maxZoom: 19,
+					},
+				).addTo(map);
 
-			// Add markers with thumbnail icons
-			places.forEach((p) => {
-				console.log(p.data.location);
-				const loc = parseLocation(p.data.location);
-				console.log(loc);
-				if (!loc) return;
+				// Add markers with thumbnail icons
+				places.forEach((p) => {
+					console.log(p.data.location);
+					const loc = parseLocation(p.data.location);
+					console.log(loc);
+					if (!loc) return;
 
-				const imgSrc = resolveImage(p);
-				const iconHtml = `<img class="thumb-marker" src="${imgSrc}" alt="${p.data.title || ""}" />`;
-				const icon = L.divIcon({
-					className: "thumb-icon",
-					html: iconHtml,
-					iconSize: [48, 48],
-					iconAnchor: [24, 24],
+					const imgSrc = resolveImage(p);
+					const iconHtml = `<img class="thumb-marker" src="${imgSrc}" alt="${p.data.title || ""}" />`;
+					const icon = L.divIcon({
+						className: "thumb-icon",
+						html: iconHtml,
+						iconSize: [48, 48],
+						iconAnchor: [24, 24],
+					});
+
+					const marker = L.marker([loc.lat, loc.lon], { icon }).addTo(
+						map,
+					);
+
+					marker.on("click", () => openPreviewCard(p, loc));
 				});
 
-				const marker = L.marker([loc.lat, loc.lon], { icon }).addTo(
-					map,
-				);
-				console.log(iconHtml);
-				marker.on("click", () => openPreviewCard(p, loc));
-			});
-			console.log("Markers added to map.");
-			// Preview card overlay
-			function openPreviewCard(entry, loc) {
-				const existing = document.querySelector(".preview-card");
-				if (existing) existing.remove();
+				// Preview card overlay
+				function openPreviewCard(entry, loc) {
+					c;
+					const existing = document.querySelector(".preview-card");
+					if (existing) existing.remove();
 
-				const card = document.createElement("div");
-				card.className = "preview-card";
-				card.innerHTML = `
+					const card = document.createElement("div");
+					card.className = "preview-card";
+					card.innerHTML = `
           <img src="${resolveImage(entry)}" alt="${entry.data.title ?? "Photo"}" />
           <h3 style="margin:0 0 6px 0;">${entry.data.title ?? "Untitled"}</h3>
           <p style="margin:0;color:#cfd8e3;font-size:13px;">${entry.data.description ?? ""}</p>
@@ -178,32 +185,33 @@ const placesData = await getCollection("places");
           </div>
           <div id="mini-map"></div>
         `;
-				document.body.appendChild(card);
+					document.body.appendChild(card);
 
-				// Prev / Next navigation
-				const idx = places.findIndex((x) => x.slug === entry.slug);
-				const prev = places[idx - 1];
-				const next = places[idx + 1];
-				const prevBtn = card.querySelector("#prev-btn");
-				const nextBtn = card.querySelector("#next-btn");
-				prevBtn.onclick = () => {
-					if (prev) window.location.href = `/places/${prev.slug}`;
-				};
-				nextBtn.onclick = () => {
-					if (next) window.location.href = `/places/${next.slug}`;
-				};
+					// Prev / Next navigation
+					const idx = places.findIndex((x) => x.slug === entry.slug);
+					const prev = places[idx - 1];
+					const next = places[idx + 1];
+					const prevBtn = card.querySelector("#prev-btn");
+					const nextBtn = card.querySelector("#next-btn");
+					prevBtn.onclick = () => {
+						if (prev) window.location.href = `/places/${prev.slug}`;
+					};
+					nextBtn.onclick = () => {
+						if (next) window.location.href = `/places/${next.slug}`;
+					};
 
-				// Mini-map inside card
-				const miniMapEl = card.querySelector("#mini-map");
-				const miniMap = L.map(miniMapEl, {
-					zoomControl: false,
-					attributionControl: false,
-				}).setView([loc.lat, loc.lon], 13);
-				L.tileLayer(
-					"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-				).addTo(miniMap);
-				L.marker([loc.lat, loc.lon]).addTo(miniMap);
-			}
+					// Mini-map inside card
+					const miniMapEl = card.querySelector("#mini-map");
+					const miniMap = L.map(miniMapEl, {
+						zoomControl: false,
+						attributionControl: false,
+					}).setView([loc.lat, loc.lon], 13);
+					L.tileLayer(
+						"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+					).addTo(miniMap);
+					L.marker([loc.lat, loc.lon]).addTo(miniMap);
+				}
+			});
 		</script>
 	</body>
 </html>
