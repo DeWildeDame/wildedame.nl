@@ -66,8 +66,6 @@ function applyTheme(name) {
 	// create theme variable;
 	let theme;
 
-
-
 	// Gotta respect how horrible javascript is with types, I kind of love it :)
 	if (name === null || name === "random") {
 		theme = THEMES[Math.floor(Math.random() * THEMES.length)];
