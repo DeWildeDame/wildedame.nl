@@ -1,0 +1,66 @@
+---
+import { getCollection, getEntry } from "astro:content";
+//import L from "leaflet";
+
+const { slug } = Astro.params;
+
+
+export async function getStaticPaths() {
+	const posts = await getCollection("places");
+	return posts.map((post: any) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+
+const entry = await getEntry("places", slug);
+const all = await getCollection("places");
+
+const index = all.findIndex((p) => p.id === slug);
+const prev = all[index - 1];
+const next = all[index + 1];
+---
+
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <style>
+      #mini-map { height: 200px; margin-top: 1rem; }
+    </style>
+  </head>
+
+  <body>
+    <article>
+      <h1>{entry?.data.title ?? "Untitled"}</h1>
+      <img src={entry?.data.image} alt={entry?.data.title} />
+
+      <p>{entry?.body}</p>
+
+      <nav>
+        {prev && <a href={`/places/${prev.id}`}>← Previous</a>}
+        {next && <a href={`/places/${next.id}`}>Next →</a>}
+      </nav>
+
+      <div id="mini-map"></div>
+
+      <script type="module">
+        import L from "https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js";
+
+        const lat = {entry.data.location.lat};
+        const lon = {entry.data.location.lon};
+
+        const map = L.map("mini-map", {
+          zoomControl: false,
+          attributionControl: false,
+        }).setView([lat, lon], 14);
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+        L.marker([lat, lon]).addTo(map);
+      </script>
+    </article>
+  </body>
+</html>

@@ -17,6 +17,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@tonejs/midi": "^2.0.28",
     "astro": "^6.1.3",
+    "leaflet": "^1.9.4",
     "sharp": "^0.34.3",
     "tone": "^15.1.22"
   }
