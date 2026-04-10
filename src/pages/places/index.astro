@@ -1,10 +1,21 @@
 ---
 import { getCollection } from "astro:content";
 const placesData = await getCollection("places");
+
+import { Image } from "astro:assets";
+
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 ---
 
-<html>
+<!doctype html>
+<html lang="en">
 	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
 		<meta charset="utf-8" />
 		<link
 			rel="stylesheet"
@@ -70,6 +81,7 @@ const placesData = await getCollection("places");
 	</head>
 
 	<body>
+		<Header />
 		<div
 			id="map"
 			aria-label="Map of places"
@@ -111,7 +123,7 @@ const placesData = await getCollection("places");
 						}
 					}
 				}
-				console.log("Loaded places data:", places);
+
 				// Parse "lat, lon" notation from YAML array
 				function parseLocation(rawLoc) {
 					if (!rawLoc) return null;
@@ -143,9 +155,8 @@ const placesData = await getCollection("places");
 
 				// Add markers with thumbnail icons
 				places.forEach((p) => {
-					console.log(p.data.location);
 					const loc = parseLocation(p.data.location);
-					console.log(loc);
+
 					if (!loc) return;
 
 					const imgSrc = resolveImage(p);
@@ -166,7 +177,6 @@ const placesData = await getCollection("places");
 
 				// Preview card overlay
 				function openPreviewCard(entry, loc) {
-					c;
 					const existing = document.querySelector(".preview-card");
 					if (existing) existing.remove();
 
@@ -177,7 +187,7 @@ const placesData = await getCollection("places");
           <h3 style="margin:0 0 6px 0;">${entry.data.title ?? "Untitled"}</h3>
           <p style="margin:0;color:#cfd8e3;font-size:13px;">${entry.data.description ?? ""}</p>
           <div class="preview-actions">
-            <a class="btn" href="/places/${entry.slug}">Open full card →</a>
+            <a class="btn" href="/places/${entry.id}">Open full card →</a>
             <div>
               <button id="prev-btn" class="btn">←</button>
               <button id="next-btn" class="btn">→</button>
@@ -186,7 +196,6 @@ const placesData = await getCollection("places");
           <div id="mini-map"></div>
         `;
 					document.body.appendChild(card);
-
 					// Prev / Next navigation
 					const idx = places.findIndex((x) => x.slug === entry.slug);
 					const prev = places[idx - 1];

@@ -3,41 +3,123 @@ window.__curentTheme = null;
 const THEMES = [
 	{
 		name: "default",
-		void0: "#0d0014",
-		void1: "#9a2f6a",
-		void2: "#3a0044",
-		void3: "#52005e",
-		void4: "#6b0079",
-		void5: "#880096",
-		void6: "#ff4d8d",
-		terminalLink: "242, 143, 63",
-		hightlight: "255, 77, 141"
+		void0: "13, 15, 18",
+		void1: "26, 29, 34",
+		void2: "42, 46, 54",
+		void3: "60, 65, 80",
+		void4: "85, 92, 110",
+		void5: "122, 130, 144",
+		void6: "184, 190, 201",
+		terminalLink: "127, 179, 255",
+		hightlight: "188, 216, 255"
 	},
-
 	{
 		name: "sunset",
-		void0: "#140400",
-		void1: "#ff6b3d",
-		void2: "#d94a73",
-		void3: "#a83279",
-		void4: "#6a1b9a",
-		void5: "#4a148c",
-		void6: "#ff9e80",
-		terminalLink: "255, 120, 80",
-		hightlight: "255, 90, 150"
+		void0: "26, 15, 28",
+		void1: "58, 20, 48",
+		void2: "106, 30, 74",
+		void3: "162, 50, 79",
+		void4: "217, 90, 60",
+		void5: "242, 143, 63",
+		void6: "255, 210, 122",
+		terminalLink: "255, 158, 94",
+		hightlight: "255, 184, 138"
 	},
-
 	{
 		name: "ocean",
-		void0: "#001014",
-		void1: "#006a9a",
-		void2: "#003a44",
-		void3: "#005e6b",
-		void4: "#00797a",
-		void5: "#009688",
-		void6: "#4dd0e1",
-		terminalLink: "63, 180, 242",
-		hightlight: "77, 255, 200"
+		void0: "7, 20, 28",
+		void1: "11, 42, 58",
+		void2: "18, 74, 99",
+		void3: "28, 111, 143",
+		void4: "47, 154, 181",
+		void5: "85, 199, 217",
+		void6: "155, 232, 242",
+		terminalLink: "95, 212, 255",
+		hightlight: "168, 236, 255"
+	},
+	{
+		name: "mocca",
+		void0: "26, 18, 13",
+		void1: "46, 28, 18",
+		void2: "74, 43, 26",
+		void3: "107, 62, 36",
+		void4: "140, 86, 48",
+		void5: "180, 122, 74",
+		void6: "227, 185, 138",
+		terminalLink: "216, 154, 99",
+		hightlight: "240, 203, 161"
+	},
+	{
+		name: "forest",
+		void0: "11, 18, 12",
+		void1: "16, 32, 24",
+		void2: "26, 58, 40",
+		void3: "37, 86, 58",
+		void4: "58, 122, 82",
+		void5: "88, 163, 111",
+		void6: "142, 217, 163",
+		terminalLink: "108, 212, 155",
+		hightlight: "166, 242, 200"
+	},
+	{
+		name: "calm",
+		void0: "15, 17, 24",
+		void1: "28, 34, 48",
+		void2: "47, 58, 82",
+		void3: "68, 85, 122",
+		void4: "95, 120, 163",
+		void5: "138, 164, 199",
+		void6: "199, 214, 236",
+		terminalLink: "155, 184, 255",
+		hightlight: "201, 216, 255"
+	},
+	{
+		name: "cherry",
+		void0: "26, 5, 10",
+		void1: "48, 8, 17",
+		void2: "82, 13, 28",
+		void3: "122, 20, 42",
+		void4: "168, 31, 60",
+		void5: "217, 54, 87",
+		void6: "255, 122, 154",
+		terminalLink: "255, 79, 110",
+		hightlight: "255, 159, 179"
+	},
+	{
+		name: "nightcity",
+		void0: "11, 7, 20",
+		void1: "26, 15, 42",
+		void2: "47, 26, 74",
+		void3: "74, 42, 122",
+		void4: "106, 63, 176",
+		void5: "154, 99, 230",
+		void6: "211, 168, 255",
+		terminalLink: "79, 242, 255",
+		hightlight: "159, 250, 255"
+	},
+	{
+		name: "monaco",
+		void0: "12, 15, 20",
+		void1: "20, 32, 51",
+		void2: "31, 58, 92",
+		void3: "45, 87, 133",
+		void4: "63, 127, 176",
+		void5: "90, 174, 214",
+		void6: "155, 220, 242",
+		terminalLink: "255, 204, 128",
+		hightlight: "255, 229, 179"
+	},
+	{
+		name: "hotdogstand",
+		void0: "255, 0, 0",
+		void1: "255, 255, 255",
+		void2: "255, 0, 0",
+		void3: "122, 0, 0",
+		void4: "255, 255, 1",
+		void5: "255, 255, 1",
+		void6: "255, 255, 1",
+		terminalLink: "255, 255, 1",
+		hightlight: "255, 255, 1"
 	}
 ]
 // Shuffle themes on each load for variety and to show off the palette system

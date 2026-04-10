@@ -56,14 +56,13 @@
 
 
 	/* Random page vars they will all start from deep  */
-	--void-0: #0d0014;
-
-	--void-1: #9a2f6a;
-	--void-2: #3a0044;
-	--void-3: #52005e;
-	--void-4: #6b0079;
-	--void-5: #880096;
-	--void-6: #ff4d8d;
+	--void-0: 13, 0, 20;
+	--void-1: 154, 47, 106;
+	--void-2: 58, 0, 68;
+	--void-3: 82, 0, 94;
+	--void-4: 107, 0, 121;
+	--void-5: 136, 0, 150;
+	--void-6: 255, 77, 141;
 
 	--terminal-link: 242, 143, 63;
 	--hightlight: 255, 77, 141;

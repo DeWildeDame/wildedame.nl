@@ -25,8 +25,8 @@
 
 
 	.terminal code {
-		background: var(--void-0);
-		color: var(--void-1);
+		background: rgb(var(--void-0));
+		color: rgb(var(--void-1));
 		padding: 12px 1em;
 	}
 
@@ -41,29 +41,7 @@
 
 	/* Terminal palette for images */
 
-	.terminal img {
-		filter: grayscale(1) contrast(1.2) brightness(1.0);
-	}
 
-	.terminal img::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		/* Replace these with your exact sampled colors */
-		background: linear-gradient(to bottom,
-				var(--void-0),
-				var(--void-1),
-				var(--void-2),
-				var(--void-3),
-				var(--void-4),
-				var(--void-5),
-
-			);
-		mix-blend-mode: screen;
-		/* try 'screen', 'lighten', or 'overlay' */
-		opacity: 1;
-		pointer-events: none;
-	}
 
 	.terminal header {
 		display: flex;
@@ -74,7 +52,7 @@
 		min-width: 100%;
 		margin: 0;
 
-		border-bottom: var(--void-6) solid 1px;
+		border-bottom: rgb(var(--void-6)) solid 1px;
 	}
 
 	/* Nav stays as a row */
@@ -114,8 +92,8 @@
 	/* Active link */
 	.terminal header nav a.active {
 		height: 2em;
-		background: var(--void-6);
-		color: var(--void-0);
+		background: rgb(var(--void-6));
+		color: rgb(var(--void-0));
 
 	}
 
@@ -127,17 +105,17 @@
 	}
 
 	.terminal .comment {
-		color: var(--void-1);
+		color: rgb(var(--void-1));
 	}
 
 	.terminal .comment a {
-		color: rgb(var(--void-2));
+		color: rgb(var(--void-6));
 		animation: none;
 	}
 
 	.terminal .terminal-type {
 		font-family: "Monoid", monospace;
-		color: var(--void-6);
+		color: rgb(var(--void-6));
 		font-size: 1.2rem;
 		white-space: pre;
 	}
@@ -167,8 +145,8 @@
 	}
 
 	.terminal .choice.active {
-		border-left-color: var(--void-6);
-		color: var(--void-6);
+		border-left-color: rgb(var(--void-6));
+		color: rgb(var(--void-6));
 	}
 
 
@@ -281,7 +259,7 @@
 		padding: 6px 10px;
 		border-radius: 4px;
 		font-family: monoidregular, monospace;
-		color: var(--void-1);
+		color: rgb(var(--void-1));
 		caret-color: transparent;
 	}
 
@@ -294,14 +272,14 @@
 		background: transparent;
 		border: none;
 		outline: none;
-		color: var(--void-6);
+		color: rgb(var(--void-6));
 		font-family: inherit;
 		font-size: inherit;
 
 	}
 
 	.command-output {
-		color: var(--void-6);
+		color: rgb(var(--void-6));
 		margin-top: 4px;
 	}
 
