@@ -8,7 +8,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
 
 type Props = CollectionEntry<"places">["data"];
-console.log(Astro);
+
 const { title, pubDate, updatedDate } = Astro.props;
 ---
 
@@ -59,7 +59,7 @@ const { title, pubDate, updatedDate } = Astro.props;
 
 	<body>
 		<Header />
-		<main>
+		<main class="places">
 			<article>
 				<div class="hero-image"></div>
 				<div class="prose">
