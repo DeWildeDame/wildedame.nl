@@ -122,23 +122,6 @@ const THEMES = [
 		hightlight: "255, 255, 1"
 	}
 ]
-// Shuffle themes on each load for variety and to show off the palette system
-function applyRandomTheme() {
-	const theme = THEMES[Math.floor(Math.random() * THEMES.length)];
-	const root = document.documentElement;
-
-	root.style.setProperty("--void-0", theme.void0);
-	root.style.setProperty("--void-1", theme.void1);
-	root.style.setProperty("--void-2", theme.void2);
-	root.style.setProperty("--void-3", theme.void3);
-	root.style.setProperty("--void-4", theme.void4);
-	root.style.setProperty("--void-5", theme.void5);
-	root.style.setProperty("--void-6", theme.void6);
-
-	root.style.setProperty("--terminal-link", theme.terminalLink);
-	root.style.setProperty("--hightlight", theme.hightlight);
-}
-
 function isPureNumber(str) {
 	// I got 99 problems but a regex ain't one
 	return /^[0-9]+$/.test(str);
