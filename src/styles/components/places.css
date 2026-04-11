@@ -1,0 +1,5 @@
+.places {
+	background: rgba(var(--places-background), 1);
+	background: var(--places-background-gradient);
+	color: rgb(var(--text-color));
+}

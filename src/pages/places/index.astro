@@ -80,7 +80,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 		</style>
 	</head>
 
-	<body>
+	<body class="places">
 		<Header />
 		<div
 			id="map"
@@ -193,7 +193,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
               <button id="next-btn" class="btn">→</button>
             </div>
           </div>
-          <div id="mini-map"></div>
+
         `;
 					document.body.appendChild(card);
 					// Prev / Next navigation
@@ -208,17 +208,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 					nextBtn.onclick = () => {
 						if (next) window.location.href = `/places/${next.slug}`;
 					};
-
-					// Mini-map inside card
-					const miniMapEl = card.querySelector("#mini-map");
-					const miniMap = L.map(miniMapEl, {
-						zoomControl: false,
-						attributionControl: false,
-					}).setView([loc.lat, loc.lon], 13);
-					L.tileLayer(
-						"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-					).addTo(miniMap);
-					L.marker([loc.lat, loc.lon]).addTo(miniMap);
 				}
 			});
 		</script>

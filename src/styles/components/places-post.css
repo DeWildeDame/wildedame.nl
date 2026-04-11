@@ -1,0 +1,12 @@
+.places-post article {
+	width: 720px;
+	max-width: calc(100% - 1em);
+	margin: auto;
+	padding: 0 1em;
+}
+
+.places-post {
+	background: rgba(var(--places-background), 1);
+	background: var(--places-background-gradient);
+	color: rgb(var(--text-color));
+}

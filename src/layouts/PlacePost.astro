@@ -57,20 +57,29 @@ const { title, pubDate, updatedDate } = Astro.props;
 		</style>
 	</head>
 
-	<body>
+	<body class="places-post">
 		<Header />
-		<main class="places">
+		<main>
 			<article>
-				<div class="hero-image"></div>
-				<div class="prose">
-					<div class="title"></div>
-					<h1>{title}</h1>
-					<hr />
+				<div class="title"></div>
+				<h1>{title}</h1>
+				<div class="date">
+					Published on:<FormattedDate date={pubDate} />
+					{
+						updatedDate && (
+							<span class="last-updated-on">
+								{" (Last updated on: "}
+								<FormattedDate date={updatedDate} />
+								{")"}
+							</span>
+						)
+					}
 				</div>
+				<hr />
 				<slot />
 			</article>
-		</main>
 
-		<Footer />
+			<Footer />
+		</main>
 	</body>
 </html>
