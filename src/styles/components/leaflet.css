@@ -578,6 +578,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	text-align: left;
 	border-radius: 0 0 12px 12px;
 	max-width: 250px;
+	min-width: 250px;
 }
 
 
