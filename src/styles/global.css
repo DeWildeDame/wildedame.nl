@@ -68,8 +68,8 @@
 	--hightlight: 255, 77, 141;
 
 	/* Places */
-	--places-background: 30, 40, 30;
-	--places-background-gradient: linear-gradient(180deg, rgba(var(--places-background), 1) 0%, rgba(0, 0, 0, 1) 100%);
+	--map-background: 30, 30, 30;
+	--map-background-gradient: linear-gradient(180deg, rgba(var(--map-background), 1) 0%, rgba(0, 0, 0, 1) 100%);
 
 
 

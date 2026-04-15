@@ -7,9 +7,9 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
 
-type Props = CollectionEntry<"places">["data"];
+type Props = CollectionEntry<"photos">["data"];
 
-const { title, pubDate, updatedDate } = Astro.props;
+const { title, pubDate, updatedDate, createdDate } = Astro.props;
 ---
 
 <html lang="en">
@@ -40,7 +40,7 @@ const { title, pubDate, updatedDate } = Astro.props;
 			}
 			.title {
 				margin-bottom: 1em;
-				padding: 1em 0;
+				padding: 0;
 				text-align: center;
 				line-height: 1;
 			}
@@ -67,15 +67,23 @@ const { title, pubDate, updatedDate } = Astro.props;
 					Published on:<FormattedDate date={pubDate} />
 					{
 						updatedDate && (
+							<br />
 							<span class="last-updated-on">
-								{" (Last updated on: "}
+								{" Last updated on: "}
 								<FormattedDate date={updatedDate} />
-								{")"}
+							</span>
+						)
+					}
+					{
+						createdDate && (
+							<br />
+							<span class="created-on">
+								{" Taken on: "}
+								<FormattedDate date={createdDate} />
 							</span>
 						)
 					}
 				</div>
-				<hr />
 				<slot />
 			</article>
 

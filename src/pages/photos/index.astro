@@ -1,0 +1,131 @@
+---
+import { getCollection } from "astro:content";
+const photosData = await getCollection("photos");
+
+import { Image } from "astro:assets";
+
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+
+	<body class="map">
+		<Header />
+		<div
+			id="map"
+			aria-label="Map of places"
+			data-places=`${JSON.stringify(photosData)}`
+		>
+		</div>
+
+		<script type="module">
+			import * as L from "/assets/scripts/leaflet.js";
+
+			// Wait for the dom to be ready.....
+			document.addEventListener("DOMContentLoaded", () => {
+				// Read JSON blob from DOM (safe and avoids server/client scope issues)
+
+				const places = readPlacesFromDOM();
+
+				function readPlacesFromDOM({
+					attrSelector = "#map",
+					attrName = "data-places",
+				} = {}) {
+					// Try data attribute first
+					const el = document.querySelector(attrSelector);
+					if (el) {
+						const raw = el.getAttribute(attrName);
+						if (raw) {
+							try {
+								return JSON.parse(raw);
+							} catch (err) {
+								// If attribute was HTML-escaped or encoded, try decodeURIComponent
+								try {
+									return JSON.parse(decodeURIComponent(raw));
+								} catch (err2) {
+									console.error(
+										"Failed to parse JSON from data attribute:",
+										err2,
+									);
+								}
+							}
+						}
+					}
+				}
+
+				// Parse "lat, lon" notation from YAML array
+				function parseLocation(rawLoc) {
+					if (!rawLoc) return null;
+					const first = Array.isArray(rawLoc) ? rawLoc[0] : rawLoc;
+					const parts = String(first)
+						.split(",")
+						.map((s) => s.trim())
+						.map(Number);
+					if (parts.length < 2 || parts.some(isNaN)) return null;
+					return { lat: parts[0], lon: parts[1] };
+				}
+
+				// Resolve image URL helper
+				function resolveThumbnail(entry) {
+					// get thumbnail
+					if (!entry?.data?.thumbnail) return "/favicon-32x32.png";
+					return entry.data.thumbnail;
+				}
+
+				function resolvePreview(entry) {
+					// get thumbnail
+					if (!entry?.data?.preview) return "/favicon-32x32.png";
+					return entry.data.preview;
+				}
+
+				// Initialize map
+				const map = L.map("map").setView([52.08, 4.3], 6);
+				L.tileLayer(
+					"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+					{
+						attribution:
+							'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+						maxZoom: 19,
+					},
+				).addTo(map);
+
+				// Add markers with thumbnail icons
+				places.forEach((p) => {
+					const loc = parseLocation(p.data.location);
+
+					if (!loc) return;
+
+					const imgSrc = resolveThumbnail(p);
+					const iconHtml = `<img class="thumb-marker" src="${imgSrc}" alt="${p.data.title || ""}" />`;
+					const icon = L.divIcon({
+						className: "thumb-icon",
+						html: iconHtml,
+						iconSize: [48, 48],
+						iconAnchor: [24, 24],
+					});
+
+					const marker = L.marker([loc.lat, loc.lon], { icon }).addTo(
+						map,
+					);
+
+					marker.bindPopup(
+						`
+						<img src="${resolvePreview(p)}" alt="${p.data.title ?? "Photo"}" />
+						<hr class="gradient" />
+							<a href="/photos/${p.id}"><h3 style="margin:0 0 6px 0;">${p.data.title ?? "Untitled"}</h3></a>
+						
+					`,
+					);
+				});
+			});
+		</script>
+	</body>
+</html>

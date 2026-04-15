@@ -44,9 +44,9 @@ const terminal = defineCollection({
 		}),
 });
 
-const places = defineCollection({
+const photos = defineCollection({
 	// Load Markdown and MDX files in the `src/content/places` directory.
-	loader: glob({ base: './src/content/places', pattern: '**/*.{md,mdx}' }),
+	loader: glob({ base: './src/content/photos', pattern: '**/*.{md,mdx}' }),
 	// Type-check frontmatter using a schema
 	schema: ({ image }) =>
 		z.object({
@@ -54,9 +54,12 @@ const places = defineCollection({
 			location: z.array(z.string()).max(1),
 			// Transform string to Date object
 			pubDate: z.coerce.date(),
-			updatedDate: z.coerce.date().optional()
+			updatedDate: z.coerce.date().optional(),
+			createdDate: z.coerce.date().optional(),
+			thumbnail: z.string().optional(),
+			preview: z.string().optional()
 
 		}),
 });
 
-export const collections = { blog, terminal, places };
+export const collections = { blog, terminal, photos };

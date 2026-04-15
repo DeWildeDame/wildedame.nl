@@ -6,7 +6,7 @@
 }
 
 .places-post {
-	background: rgba(var(--places-background), 1);
-	background: var(--places-background-gradient);
+	background: rgba(var(--map-background), 1);
+	background: var(--map-background-gradient);
 	color: rgb(var(--text-color));
 }

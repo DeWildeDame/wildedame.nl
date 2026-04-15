@@ -1,0 +1,37 @@
+.map {
+	background: rgba(var(--map-background), 1);
+	background: var(--map-background-gradient);
+	color: rgb(var(--text-color));
+}
+
+#map {
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+}
+
+.thumb-marker {
+	width: 48px;
+	height: 48px;
+	border-radius: 6px;
+	overflow: hidden;
+	border: 2px solid rgba(var(--map-background), 1);
+	object-fit: cover;
+	display: block;
+}
+
+.btn {
+	background: #111;
+	color: #9be7ff;
+	border: none;
+	padding: 6px 8px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+#mini-map {
+	height: 120px;
+	border-radius: 6px;
+	overflow: hidden;
+	margin-top: 8px;
+}
