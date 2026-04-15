@@ -1,12 +1,18 @@
-.places-post article {
+.photos-post article {
 	width: 720px;
 	max-width: calc(100% - 1em);
 	margin: auto;
 	padding: 0 1em;
 }
 
-.places-post {
+.photos-post {
 	background: rgba(var(--map-background), 1);
 	background: var(--map-background-gradient);
 	color: rgb(var(--text-color));
+}
+
+.photos-post hr.gradient {
+	margin: 0 0 0 0;
+	border-radius: 0;
+
 }
