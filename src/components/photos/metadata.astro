@@ -3,46 +3,88 @@ interface Props {
 	pubDate: Date;
 	updatedDate: Date | undefined;
 	createdDate: Date | undefined;
-	location: string | undefined;
+	location: string[] | undefined;
+	locationName: string | undefined;
+	make: string | undefined;
+	model: string | undefined;
+	orientation: string | undefined;
+	iso: number | undefined;
+	meteringMode: string | undefined;
+	exposureTime: string | undefined;
+	exposureProgram: string | undefined;
+	exposureCompensation: number | undefined;
+	fNumber: number | undefined;
+	focalLength: string | undefined;
+	focalLengthIn35mmFormat: string | undefined;
+	lensMake: string | undefined;
+	lensModel: string | undefined;
+	maxApertureValue: number | undefined;
 }
-const { pubDate, updatedDate, createdDate, location } = Astro.props;
-console.log(pubDate);
+const {
+	pubDate,
+	updatedDate,
+	createdDate,
+	location,
+	locationName,
+	make,
+	model,
+	orientation,
+	iso,
+	meteringMode,
+	exposureCompensation,
+	exposureProgram,
+	exposureTime,
+	fNumber,
+	focalLength,
+	focalLengthIn35mmFormat,
+	lensMake,
+	lensModel,
+	maxApertureValue,
+} = Astro.props;
+
+console.log(focalLength);
 
 import FormattedDate from "../FormattedDate.astro";
 ---
 
 <table class="photo-metadata">
 	<tbody>
-		{
-			pubDate && (
-				<tr>
-					<th>Published</th>
-					<td>
-						<FormattedDate date={pubDate} />
-					</td>
-				</tr>
-			)
-		}
-		{
-			updatedDate && (
-				<tr>
-					<th>Published</th>
-					<td>
-						<FormattedDate date={pubDate} />
-					</td>
-				</tr>
-			)
-		}
-		{
-			createdDate && (
-				<tr>
-					<th>Taken on</th>
-					<td>
-						<FormattedDate date={createdDate} />
-					</td>
-				</tr>
-			)
-		}
+		<tr>
+			<td class="icon"
+				><img
+					src="/assets/img/icons/camera.svg"
+					alt="Camera and lens"
+				/>
+			</td>
+			<td colspan="4">
+				<strong class="accent">{model}</strong>
+				<br />
+				{lensModel}
+			</td>
+		</tr>
+		<tr>
+			<td class="small icon">
+				<img src="/assets/img/icons/iso.svg" alt="ISO" />
+			</td>
+			<td>
+				{iso}
+			</td>
+			<td class="small icon">
+				<img src="/assets/img/icons/aperture.svg" alt="aperture" />
+			</td>
+			<td>
+				ƒ/{fNumber}
+			</td>
+			<td class="small icon">
+				<img
+					src="/assets/img/icons/shutterspeed.svg"
+					alt="Shutter speed"
+				/>
+			</td>
+			<td>
+				{exposureTime} s
+			</td>
+		</tr>
 	</tbody>
 </table>
 

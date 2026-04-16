@@ -159,8 +159,6 @@ function applyTheme(name) {
 	return theme.name;
 }
 
-applyTheme(null); // apply random theme on load
-
 
 //create a synth and connect it to the main output (your speakers)
 const synth = new Tone.Synth().toDestination();

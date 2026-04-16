@@ -8,11 +8,16 @@
 	}
 }
 
-
+/* Visisbility status */
 .hidden {
 	display: none !important;
 }
 
 .show {
 	display: block !important;
+}
+
+/* Coloro classes */
+.accent {
+	color: rgb(var(--accent))
 }

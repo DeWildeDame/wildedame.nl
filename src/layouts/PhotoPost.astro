@@ -9,7 +9,30 @@ import Header from "../components/Header.astro";
 
 type Props = CollectionEntry<"photos">["data"];
 
-const { title, pubDate, updatedDate, createdDate } = Astro.props;
+const {
+	title,
+	pubDate,
+	updatedDate,
+	createdDate,
+	location,
+	locationName,
+	make,
+	model,
+	orientation,
+	iso,
+	meteringMode,
+	exposureTime,
+	exposureCompensation,
+	exposureProgram,
+	fNumber,
+	focalLengthIn35mmFormat,
+	focalLength,
+	lensMake,
+	lensModel,
+	maxApertureValue,
+} = Astro.props;
+
+console.log(focalLength);
 ---
 
 <html lang="en">
@@ -67,6 +90,22 @@ const { title, pubDate, updatedDate, createdDate } = Astro.props;
 					pubDate={pubDate}
 					updatedDate={updatedDate}
 					createdDate={createdDate}
+					location={location}
+					locationName={locationName}
+					make={make}
+					model={model}
+					orientation={orientation}
+					iso={iso}
+					meteringMode={meteringMode}
+					exposureCompensation={exposureCompensation}
+					exposureProgram={exposureProgram}
+					exposureTime={exposureTime}
+					fNumber={fNumber}
+					focalLengthIn35mmFormat={focalLengthIn35mmFormat}
+					focalLength={focalLength}
+					lensMake={lensMake}
+					lensModel={lensModel}
+					maxApertureValue={maxApertureValue}
 				/>
 				<slot />
 			</article>

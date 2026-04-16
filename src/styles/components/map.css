@@ -5,7 +5,7 @@
 }
 
 #map {
-	height: 100vh;
+	height: calc(100vh - 87px);
 	margin: 0;
 	padding: 0;
 }
