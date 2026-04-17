@@ -69,7 +69,7 @@ const photos = defineCollection({
 			meteringMode: z.string().optional(),
 
 			//ExposureTime
-			exposureTime: z.string().regex(/^\d+\/\d+$/).optional(),
+			exposureTime: z.number().optional(),
 			exposureCompensation: z.number().optional(),
 			exposureProgram: z.string().optional(),
 

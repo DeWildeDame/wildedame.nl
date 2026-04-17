@@ -1,4 +1,6 @@
 ---
+import formatExposureTime from "./formatExposureTime";
+
 interface Props {
 	pubDate: Date;
 	updatedDate: Date | undefined;
@@ -10,7 +12,7 @@ interface Props {
 	orientation: string | undefined;
 	iso: number | undefined;
 	meteringMode: string | undefined;
-	exposureTime: string | undefined;
+	exposureTime: number | undefined;
 	exposureProgram: string | undefined;
 	exposureCompensation: number | undefined;
 	fNumber: number | undefined;
@@ -82,7 +84,7 @@ import FormattedDate from "../FormattedDate.astro";
 				/>
 			</td>
 			<td>
-				{exposureTime} s
+				{exposureTime ? formatExposureTime(exposureTime) : ""}
 			</td>
 		</tr>
 	</tbody>
