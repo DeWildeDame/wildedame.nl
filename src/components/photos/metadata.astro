@@ -44,8 +44,6 @@ const {
 	maxApertureValue,
 } = Astro.props;
 
-console.log(focalLength);
-
 import FormattedDate from "../FormattedDate.astro";
 ---
 
@@ -87,67 +85,82 @@ import FormattedDate from "../FormattedDate.astro";
 				{exposureTime ? formatExposureTime(exposureTime) : ""}
 			</td>
 		</tr>
+		{
+			createdDate ? (
+				<tr>
+					<td class="small icon">
+						<img
+							src="/assets/img/icons/date.svg"
+							alt="Created on"
+						/>
+					</td>
+					<td colspan="5">
+						<FormattedDate date={createdDate} />
+					</td>
+				</tr>
+			) : null
+		}
 	</tbody>
+
+	<style>
+		/* card */
+		.card {
+			gap: 1.5rem;
+			padding: 1.5rem;
+			border-radius: 12px;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.05);
+			transition: 0.25s ease;
+		}
+		.card:hover {
+			border-color: rgba(255, 255, 255, 0.15);
+			transform: translateY(-2px);
+		}
+		.card-title {
+			display: flex;
+			justify-content: left; /* horizontal centering */
+			align-items: top; /* vertical centering */
+			padding: 0 1em;
+			gap: 1em;
+		}
+
+		.card h3 {
+			font-size: 1.2rem;
+			margin: 0;
+		}
+
+		.card h4 {
+			margin: 0.2rem 0 0.5rem;
+			font-weight: 500;
+
+			opacity: 0.7;
+			font-size: 0.9rem;
+			margin-bottom: 0.8rem;
+			color: rgba(var(--accent));
+		}
+
+		.card-block p {
+			line-height: 1.6;
+			opacity: 0.9;
+		}
+
+		.card .logo {
+			width: 70px;
+			height: 70px;
+			flex-shrink: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.card .logo img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+		.card-description {
+			color: #fff;
+			margin-top: -1em;
+			padding: 0 1em;
+		}
+	</style>
 </table>
-
-<style>
-	/* card */
-	.card {
-		gap: 1.5rem;
-		padding: 1.5rem;
-		border-radius: 12px;
-		background: rgba(255, 255, 255, 0.03);
-		border: 1px solid rgba(255, 255, 255, 0.05);
-		transition: 0.25s ease;
-	}
-	.card:hover {
-		border-color: rgba(255, 255, 255, 0.15);
-		transform: translateY(-2px);
-	}
-	.card-title {
-		display: flex;
-		justify-content: left; /* horizontal centering */
-		align-items: top; /* vertical centering */
-		padding: 0 1em;
-		gap: 1em;
-	}
-
-	.card h3 {
-		font-size: 1.2rem;
-		margin: 0;
-	}
-
-	.card h4 {
-		margin: 0.2rem 0 0.5rem;
-		font-weight: 500;
-
-		opacity: 0.7;
-		font-size: 0.9rem;
-		margin-bottom: 0.8rem;
-		color: rgba(var(--accent));
-	}
-
-	.card-block p {
-		line-height: 1.6;
-		opacity: 0.9;
-	}
-
-	.card .logo {
-		width: 70px;
-		height: 70px;
-		flex-shrink: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.card .logo img {
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
-	}
-	.card-description {
-		color: #fff;
-		margin-top: -1em;
-		padding: 0 1em;
-	}
-</style>
