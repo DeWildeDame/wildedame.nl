@@ -117,10 +117,10 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 					);
 
 					marker.bindPopup(
-						`
+						`<a href="/photos/${p.id}">
 						<img src="${resolvePreview(p)}" alt="${p.data.title ?? "Photo"}" />
 						<hr class="gradient" />
-							<a href="/photos/${p.id}"><h3 style="margin:0 0 6px 0;">${p.data.title ?? "Untitled"}</h3></a>
+							<h3 style="margin:0 0 6px 0;">${p.data.title ?? "Untitled"}</h3></a>
 						
 					`,
 					);

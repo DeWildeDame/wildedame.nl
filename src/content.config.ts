@@ -95,7 +95,7 @@ const photos = defineCollection({
 			focalLength: z.string().optional(),
 
 			// location GPS
-			location: z.array(z.string()).max(1),
+			location: z.array(z.union([z.string(), z.null()])).max(1),
 			// Location name
 			locationName: z.string().optional(),
 
