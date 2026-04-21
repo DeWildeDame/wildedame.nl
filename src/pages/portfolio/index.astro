@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+const photosData = await getCollection("portfolio");
+
+import { Image } from "astro:assets";
+
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+
+import Metadata from "../../components/photos/metadata.astro";
+
+const posts = (await getCollection("portfolio")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+
+	<body class="photos overview">
+		<Header />
+		<main>
+			<section>
+				<div class="photo">
+					{
+						posts.map((post) => (
+							<a href={`/photos/${post.id}/`}>
+								<div>
+									{post.data.thumbnail && (
+										<Image
+											height={320}
+											width={500}
+											src={post.data.thumbnail}
+											alt={post.data.thumbnail}
+										/>
+									)}
+								</div>
+							</a>
+						))
+					}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
