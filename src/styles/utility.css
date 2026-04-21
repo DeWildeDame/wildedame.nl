@@ -17,7 +17,20 @@
 	display: block !important;
 }
 
-/* Coloro classes */
+/* Color classes */
 .accent {
 	color: rgb(var(--accent))
+}
+
+/* I would like to display inline lists, so that semantics are preserved for screenreaders and the like */
+
+ol.inline,
+ul.inline {
+	display: inline;
+	padding: 0;
+}
+
+ol.inline li,
+ul.inline li {
+	display: inline;
 }

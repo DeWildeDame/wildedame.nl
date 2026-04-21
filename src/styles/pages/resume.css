@@ -1,0 +1,47 @@
+body.resume {
+	background: rgba(var(--map-background), 1);
+	background: var(--map-background-gradient);
+	color: rgb(var(--text-color));
+
+}
+
+.resume main {
+	width: calc(100% - 2em);
+	max-width: 100%;
+	margin: 0;
+	width: 720px;
+	max-width: calc(100%);
+	margin: auto;
+	padding: 1em;
+	color: rgb(var(--text-color));
+}
+
+.resume .hero-image {
+	width: 100%;
+}
+
+.resume .hero-image img {
+	display: block;
+	margin: 0 auto;
+	border-radius: 12px;
+}
+
+.resume .title {
+	margin-bottom: 1em;
+	padding: 1em 0;
+	text-align: center;
+	line-height: 1;
+}
+
+.resume .title h1 {
+	margin: 0 0 0.5em 0;
+}
+
+.resume .date {
+	margin-bottom: 0.5em;
+	color: rgb(var(--gray));
+}
+
+.resume .last-updated-on {
+	font-style: italic;
+}

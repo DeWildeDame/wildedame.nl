@@ -1,17 +1,152 @@
 ---
 import AboutHeroImage from "../assets/img/cv/header-image.jpg";
-import Layout from "../layouts/BlogPost.astro";
+import { Image } from "astro:assets";
+
 import { experience } from "../data/expierence";
 import CvCard from "../components/CvCard.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
+
+const title = "Hello, nice to meet you.";
+const description = "I am a front end developer, gone product alchemist.";
+
+const pubDate = new Date("April 03 2026");
 ---
 
-<Layout
-	title="Curriculum vitae"
-	description="A overview of my work experience, education and skills."
-	pubDate={new Date("April 03 2026")}
-	heroImage={AboutHeroImage}
->
-	<section class="experience">
-		{experience.map((item: any) => <CvCard {...item} />)}
-	</section>
-</Layout>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body class="resume">
+		<Header />
+		<main>
+			<article>
+				<section class="about-me">
+					<div class="hero-image">
+						{
+							AboutHeroImage && (
+								<Image
+									width={720}
+									height={300}
+									src={AboutHeroImage}
+									alt=""
+								/>
+							)
+						}
+					</div>
+					<div class="gradient-header">
+						<h1>About me</h1>
+					</div>
+					<p>
+						Hello, I'm Tamara Klaassen, I am a front end developer,
+						designer and hobby photogrpaher, gone product alchemist,
+						the web tech stack I am currently obsessing over about
+						consists of:
+						<ol class="inline">
+							<li>
+								<a
+									href="https://www.w3.org/standards/"
+									target="_blank">HTML</a
+								>,
+							</li>
+							<li>
+								<a
+									href="https://www.w3.org/standards/"
+									target="_blank">CSS</a
+								>,
+							</li>
+							<li>
+								<a
+									href="https://www.typescriptlang.org/"
+									target="_blank"
+								>
+									TypeScript</a
+								>,
+							</li>
+							<li>
+								<a href="https://react.dev/" target="_blank"
+									>React</a
+								>,
+							</li><li>
+								<a href="https://astro.build/" target="_blank"
+									>Astro</a
+								>,
+							</li>
+							<li>
+								<a href="https://pnpm.io/" target="_blank"
+									>pnpm</a
+								> and
+							</li>
+							<li>
+								<a
+									href="https://nodejs.org/en/"
+									target="_blank"
+								>
+									Node.js</a
+								>.
+							</li>
+						</ol>
+					</p>
+					<p>
+						I prefer to create designs and prototypes in:
+						<ul class="inline">
+							<li>
+								<a href="https://www.figma.com/" target="_blank"
+									>Figma</a
+								>
+							</li>
+							<li>
+								<a
+									href="https://www.adobe.com/products/illustrator.html"
+									target="_blank"
+								>
+									Illustrator,</a
+								>
+							</li>
+							<li>
+								<a
+									href="https://www.adobe.com/products/photoshop.html"
+									target="_blank"
+								>
+									Photoshop,</a
+								>
+							</li>
+						</ul>
+						<br />
+						and dabbled with:<br />
+						<ul class="inline">
+							<li>
+								<a
+									href="https://www.solidworks.com/"
+									target="_blank">SolidWorks</a
+								>
+								<li>
+									and <a
+										href="https://www.blender.org/"
+										target="_blank">Blender</a
+									>.
+								</li>
+								<br />
+								<br />
+							</li>
+						</ul>
+						<section class="experience">
+							<div class="gradient-header">
+								<h2>Work expierence</h2>
+							</div>
+							{
+								experience.map((item: any) => (
+									<CvCard {...item} />
+								))
+							}
+						</section>
+					</p>
+					<Footer />
+				</section>
+			</article>
+		</main>
+	</body>
+</html>
