@@ -103,6 +103,9 @@ const photos = defineCollection({
 			thumbnail: z.string().optional(),
 			preview: z.string().optional(),
 
+			// Images for gallery
+			image: z.string().optional(),
+
 		}),
 });
 

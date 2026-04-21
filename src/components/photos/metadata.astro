@@ -21,6 +21,7 @@ interface Props {
 	lensMake: string | undefined;
 	lensModel: string | undefined;
 	maxApertureValue: number | undefined;
+	title: string;
 }
 const {
 	pubDate,
@@ -42,6 +43,7 @@ const {
 	lensMake,
 	lensModel,
 	maxApertureValue,
+	title,
 } = Astro.props;
 
 import FormattedDate from "../FormattedDate.astro";
@@ -49,6 +51,10 @@ import FormattedDate from "../FormattedDate.astro";
 
 <table class="photo-metadata">
 	<tbody>
+		<tr>
+			<td class="icon"> </td>
+			<td colspan="5"><h1>{title}</h1></td></tr
+		>
 		<tr>
 			<td class="icon"
 				><img
