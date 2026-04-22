@@ -1,0 +1,57 @@
+.portfolio {
+	display: flex;
+	justify-content: space-between;
+}
+
+
+
+.portfolio .portfolio-item a:hover {
+	/* Ensures block model */
+	display: block;
+	position: relative;
+	/* Throws a glow */
+	box-shadow:
+		0 0 8px rgba(var(--dark-accent),
+			0.5),
+		0 0 16px rgba(var(--dark-accent), 0.5);
+
+	/* Set max-width and max-height with the overflow to ensure design */
+	max-width: 230px;
+	max-height: 230px;
+	overflow: hidden;
+}
+
+.portfolio .portfolio-item a:hover::after {
+	content: "";
+	position: absolute;
+	inset: -2px;
+	border-radius: inherit;
+	background: var(--orange-gradient);
+	animation: shimmer-move 2.2s linear infinite;
+	mix-blend-mode: screen;
+	opacity: 0.4;
+	filter: blur(3em);
+}
+
+@keyframes shimmer-move {
+	0% {
+		transform: translateX(-150%);
+	}
+
+	100% {
+		transform: translateX(150%);
+	}
+}
+
+.portfolio .portfolio-item img {
+	border-radius: 0;
+}
+
+
+
+
+
+.portfolio a:hover {
+	box-shadow: none;
+	filter: none;
+}

@@ -121,8 +121,13 @@ const portfolio = defineCollection({
 			description: z.string(),
 			// Transform string to Date object
 			pubDate: z.coerce.date(),
-			heroImage: z.optional(image()),
-			thumbnail: z.optional(image())
+
+			// Images
+			thumbnail: z.string().optional(),
+			preview: z.string().optional(),
+
+			// Styles per portfolio page
+			backgroundColor: z.string().optional()
 
 		})
 });

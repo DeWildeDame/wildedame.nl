@@ -1,4 +1,7 @@
 ---
+// Import collections
+import { getCollection } from "astro:content";
+
 import AboutHeroImage from "../assets/img/cv/header-image.jpg";
 import { Image } from "astro:assets";
 
@@ -6,8 +9,15 @@ import { experience } from "../data/expierence";
 import CvCard from "../components/CvCard.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
-import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
+
+// Import grid items.
+import GridItems from "../components/pages/portfolio/GridItems.astro";
+
+// Import portfolio cards
+const portfolio = (await getCollection("portfolio")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 
 const title = "Hello, nice to meet you.";
 const description = "I am a front end developer, gone product alchemist.";
@@ -133,17 +143,33 @@ const pubDate = new Date("April 03 2026");
 								<br />
 							</li>
 						</ul>
-						<section class="experience">
-							<div class="gradient-header">
-								<h2>Work expierence</h2>
-							</div>
+					</p>
+					<!-- Reuse portfolio grid here.  -->
+					<section class="works">
+						<div class="gradient-header">
+							<h1>Recent projects & ideas</h1>
+						</div>
+						<div class="portfolio">
 							{
-								experience.map((item: any) => (
-									<CvCard {...item} />
+								portfolio.map((portfolio) => (
+									<GridItems
+										id={portfolio.id}
+										title={portfolio.data.title}
+										thumbnail={portfolio.data.thumbnail}
+										pubDate={portfolio.data.pubDate}
+									/>
 								))
 							}
-						</section>
-					</p>
+						</div>
+					</section>
+
+					<section class="experience">
+						<div class="gradient-header">
+							<h2>Work expierence</h2>
+						</div>
+						{experience.map((item: any) => <CvCard {...item} />)}
+					</section>
+
 					<Footer />
 				</section>
 			</article>

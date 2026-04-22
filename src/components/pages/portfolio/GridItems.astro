@@ -1,0 +1,9 @@
+---
+const { id, pubDate, title, thumbnail } = Astro.props;
+---
+
+<div class="portfolio-item">
+	<a href=`/portfolio/${id}`>
+		<img src=`${thumbnail}` alt=`${title}` />
+	</a>
+</div>

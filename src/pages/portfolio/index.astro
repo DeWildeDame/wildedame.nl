@@ -1,47 +1,41 @@
 ---
 import { getCollection } from "astro:content";
-const photosData = await getCollection("portfolio");
-
-import { Image } from "astro:assets";
-
 import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 
-import Metadata from "../../components/photos/metadata.astro";
+import GridItems from "../../components/pages/portfolio/GridItems.astro";
 
 const posts = (await getCollection("portfolio")).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 
-	<body class="photos overview">
+	<body>
 		<Header />
 		<main>
 			<section>
-				<div class="photo">
+				<h1>Portfolio</h1>
+				<p>
+					Een portfolio, van het Latijnse portare (dragen) en folium
+					(vel papier), is in het algemeen een verzameling van werken
+					of verwezenlijkingen van een persoon of organisatie.
+				</p>
+				<div class="portfolio">
 					{
 						posts.map((post) => (
-							<a href={`/photos/${post.id}/`}>
-								<div>
-									{post.data.thumbnail && (
-										<Image
-											height={320}
-											width={500}
-											src={post.data.thumbnail}
-											alt={post.data.thumbnail}
-										/>
-									)}
-								</div>
-							</a>
+							<GridItems
+								id={post.id}
+								title={post.data.title}
+								thumbnail={post.data.thumbnail}
+								pubDate={post.data.pubDate}
+							/>
 						))
 					}
 				</div>
