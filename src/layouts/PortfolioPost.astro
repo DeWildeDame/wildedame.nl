@@ -1,16 +1,15 @@
 ---
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
-import { Image } from "astro:assets";
+
 import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
-import Metadata from "../components/photos/metadata.astro";
+
 import Header from "../components/Header.astro";
 
 type Props = CollectionEntry<"portfolio">["data"];
 
-const { backgroundColor } = Astro.props;
-console.log(backgroundColor);
+const { backgroundColor, title } = Astro.props;
 ---
 
 <html lang="en">
@@ -55,9 +54,11 @@ console.log(backgroundColor);
 		<Header />
 		<main>
 			<article class="prose">
+				<h1>{title}</h1>
 				<slot />
 			</article>
 		</main>
+		<Footer />
 	</body>
 </html>
 
