@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
+import PortfolioPost from "../../layouts/PortfolioPost.astro";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("portfolio");
@@ -10,6 +11,10 @@ export async function getStaticPaths() {
 }
 type Props = CollectionEntry<"portfolio">;
 
-const post = Astro.props;
-const { Content } = await render(post);
+const portfolio = Astro.props;
+const { Content } = await render(portfolio);
 ---
+
+<PortfolioPost {...portfolio.data}>
+	<Content />
+</PortfolioPost>
