@@ -16,11 +16,18 @@ import "../styles/components/terminal.css";
 
 // Pages
 import "../styles/pages/resume.css";
+import "../styles/pages/portfolio.css";
+
+// Magnifier
+import "../styles/components/lightbox.css";
 
 // Photos
 import "../styles/components/leaflet.css";
 import "../styles/components/map.css";
 import "../styles/components/photos-post.css";
+
+// Portfolio grid
+import "../styles/components/portfolio-grid.css";
 
 import type { ImageMetadata } from "astro";
 import FallbackImage from "../assets/blog/fallback.svg";
@@ -76,3 +83,5 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<script src="/assets/scripts/lightbox.js" is:client></script>

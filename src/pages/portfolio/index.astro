@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+
+import GridItems from "../../components/pages/portfolio/GridItems.astro";
+
+const posts = (await getCollection("portfolio")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<section>
+				<h1>Portfolio</h1>
+				<p>
+					Een portfolio, van het Latijnse portare (dragen) en folium
+					(vel papier), is in het algemeen een verzameling van werken
+					of verwezenlijkingen van een persoon of organisatie.
+				</p>
+				<div class="portfolio">
+					{
+						posts.map((post) => (
+							<GridItems
+								id={post.id}
+								title={post.data.title}
+								thumbnail={post.data.thumbnail}
+								pubDate={post.data.pubDate}
+							/>
+						))
+					}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
